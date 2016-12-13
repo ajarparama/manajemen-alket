@@ -925,6 +925,11 @@ li.logout {
  * -------------------------
  */
 /*Dropdowns in general*/
+#dropdown-profile {
+  border: none;
+  padding-top: 0;
+}
+
 .dropdown-menu {
   box-shadow: none;
   border-color: #eee;
@@ -2235,7 +2240,7 @@ li.logout {
   display: block;
 }
 .btn-logout {
-  background-color: #222d32;
+  background-color: #1e2d4a;
   color: #b8c7ce;
   width: 100%;
   text-align: left;

@@ -50,7 +50,7 @@
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{ Auth::user()->nama }}</span>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" id="dropdown-profile">
               <!-- The user image in the menu -->
               <li class="user-header">
                 <img src="{{ asset(Auth::user()->userpic) }}" class="img-circle" alt="User Image">
