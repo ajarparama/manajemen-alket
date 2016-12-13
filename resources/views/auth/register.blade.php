@@ -81,10 +81,10 @@
 
                         <div class="radio"> 
                           <label>
-                            <input name="userpic" id="userpic" type="radio" value="{{ asset('img/userpicm.jpg') }}" checked="checked"> Laki-laki                  
+                            <input name="userpic" id="userpic" type="radio" value="userpicm.jpg" checked="checked"> Laki-laki                  
                           </label>
                           <label>
-                            <input name="userpic" id="userpic" type="radio" value="{{ asset('img/userpicf.jpg') }}"> Perempuan 
+                            <input name="userpic" id="userpic" type="radio" value="userpicf.jpg"> Perempuan 
                           </label>
                         </div>
 
