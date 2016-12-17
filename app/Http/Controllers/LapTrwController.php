@@ -88,51 +88,51 @@ class LapTrwController extends Controller
         // $trw_ini    =   $trw[1]['Bulan'];
         // $sd_trw_ini =   array_merge($trw_lalu, $trw_ini);
 
-    	$ppatkobars	   = PPAT::with('lapppat', 'ar')->where('kabupaten', '=', 'Kotawaringin Barat')->get();
-        $ppatlamandaus = PPAT::with('lapppat', 'ar')->where('kabupaten', '=', 'Lamandau')->get();
-        $ppatsukamaras = PPAT::with('lapppat', 'ar')->where('kabupaten', '=', 'Sukamara')->get();
+    	$ppatkobars	   = PPAT::with('lapppat', 'ar')->where('kabupaten', '=', 'KOTAWARINGIN BARAT')->get();
+        $ppatlamandaus = PPAT::with('lapppat', 'ar')->where('kabupaten', '=', 'LAMANDAU')->get();
+        $ppatsukamaras = PPAT::with('lapppat', 'ar')->where('kabupaten', '=', 'SUKAMARA')->get();
         $kobarjml34    = LapPPAT::whereHas('ppat', function($query) use ($tahun, $trw_lalu) {
-                               $query->where('kabupaten', '=', 'Kotawaringin Barat');
+                               $query->where('kabupaten', '=', 'KOTAWARINGIN BARAT');
                                $query->where('tahun', '=', $tahun);
                                $query->whereIn('bulan', $trw_lalu); 
                            })->get();
         $kobarjml56    = LapPPAT::whereHas('ppat', function($query) use ($tahun, $trw_ini) {
-                               $query->where('kabupaten', '=', 'Kotawaringin Barat');
+                               $query->where('kabupaten', '=', 'KOTAWARINGIN BARAT');
                                $query->where('tahun', '=', $tahun);
                                $query->whereIn('bulan', $trw_ini); 
                            })->get();
         $kobarjml78    = LapPPAT::whereHas('ppat', function($query) use ($tahun, $sd_trw_ini) {
-                               $query->where('kabupaten', '=', 'Kotawaringin Barat');
+                               $query->where('kabupaten', '=', 'KOTAWARINGIN BARAT');
                                $query->where('tahun', '=', $tahun);
                                $query->whereIn('bulan', $sd_trw_ini); 
                            })->get();
         $sukamarajml34    = LapPPAT::whereHas('ppat', function($query) use ($tahun, $trw_lalu) {
-                               $query->where('kabupaten', '=', 'Sukamara');
+                               $query->where('kabupaten', '=', 'SUKAMARA');
                                $query->where('tahun', '=', $tahun);
                                $query->whereIn('bulan', $trw_lalu); 
                            })->get();
         $sukamarajml56    = LapPPAT::whereHas('ppat', function($query) use ($tahun, $trw_ini) {
-                               $query->where('kabupaten', '=', 'Sukamara');
+                               $query->where('kabupaten', '=', 'SUKAMARA');
                                $query->where('tahun', '=', $tahun);
                                $query->whereIn('bulan', $trw_ini); 
                            })->get();
         $sukamarajml78    = LapPPAT::whereHas('ppat', function($query) use ($tahun, $sd_trw_ini) {
-                               $query->where('kabupaten', '=', 'Sukamara');
+                               $query->where('kabupaten', '=', 'SUKAMARA');
                                $query->where('tahun', '=', $tahun);
                                $query->whereIn('bulan', $sd_trw_ini); 
                            })->get();
         $lamandaujml34    = LapPPAT::whereHas('ppat', function($query) use ($tahun, $trw_lalu) {
-                               $query->where('kabupaten', '=', 'Lamandau');
+                               $query->where('kabupaten', '=', 'LAMANDAU');
                                $query->where('tahun', '=', $tahun);
                                $query->whereIn('bulan', $trw_lalu); 
                            })->get();
         $lamandaujml56    = LapPPAT::whereHas('ppat', function($query) use ($tahun, $trw_ini) {
-                               $query->where('kabupaten', '=', 'Lamandau');
+                               $query->where('kabupaten', '=', 'LAMANDAU');
                                $query->where('tahun', '=', $tahun);
                                $query->whereIn('bulan', $trw_ini); 
                            })->get();
         $lamandaujml78    = LapPPAT::whereHas('ppat', function($query) use ($tahun, $sd_trw_ini) {
-                               $query->where('kabupaten', '=', 'Lamandau');
+                               $query->where('kabupaten', '=', 'LAMANDAU');
                                $query->where('tahun', '=', $tahun);
                                $query->whereIn('bulan', $sd_trw_ini); 
                            })->get();
@@ -150,7 +150,7 @@ class LapTrwController extends Controller
                            })->get();
 
 
-        // $jml_data_kobars    = PPAT::with('lapppat', 'ar')->where('kabupaten', '=', 'Kotawaringin Barat')->whereIn('bulan', [1, 2, 3])->get();
+        // $jml_data_kobars    = PPAT::with('lapppat', 'ar')->where('kabupaten', '=', 'KOTAWARINGIN BARAT')->whereIn('bulan', [1, 2, 3])->get();
 
     	return view('laporan.triwulanan')->with(compact('nama_ttd', 'nip_ttd', 'tahun', 'triwulan', 'ppatkobars', 'kobarjml34', 'kobarjml56', 'kobarjml78', 'sukamarajml34', 'sukamarajml56', 'sukamarajml78', 'lamandaujml34', 'lamandaujml56', 'lamandaujml78', 'alljml34', 'alljml56', 'alljml78', 'ppatlamandaus', 'ppatsukamaras', 'trw', 'trw_lalu', 'trw_ini', 'sd_trw_ini'));
     }

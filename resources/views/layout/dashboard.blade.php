@@ -16,6 +16,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="{{ asset('css/fonts.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('css/AdminLTE.css') }}">
   <!-- Datatables -->

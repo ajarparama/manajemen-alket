@@ -100,10 +100,9 @@
       "orderable":true,
       "searchable":true,
       "render": function ( data, type, row ) {
-        var dateSplit = data.split('-');
-        return type === "display" || type === "filter" ?
-            dateSplit[1] +'-'+ dateSplit[2] +'-'+ dateSplit[0] :
-            data;
+          var str = data.toString()
+          var date = str.substring(8,10)+"-"+str.substring(5,7)+"-"+str.substring(0,4) ;
+          return date;
         }
       },
     {"data":"sumber",
