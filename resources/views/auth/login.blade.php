@@ -73,6 +73,10 @@
                           </div>
                     </form>
 
+<div class="social-auth-links text-center">
+      <p>- ATAU -</p>
+      <a href="{{ url('/register') }}" class="btn btn-block btn-primary btn-flat"> Daftar akun baru</a>
+    </div>
 
   </div>
   <!-- /.login-box-body -->

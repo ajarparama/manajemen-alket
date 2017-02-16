@@ -21,7 +21,7 @@
         <li class="header">NAVIGATION</li>
         <!-- Optionally, you can add icons to the links -->
         <li @if (Request::is('home*')) class="active" @endif ><a href="{{ url('home') }}"><i class="fa fa-home"></i> <span>Home</span></a></li>
-        <li @if (Request::is('alket*')) class="treeview active" @elseif (Request::is('mediamassa*')) class="treeview active" @else class="treeview" @endif>
+        <li @if (Request::is('alket*')) class="treeview active" @elseif (Request::is('mediamassa*')) class="treeview active" @elseif (Request::is('siup*')) class="treeview active" @else class="treeview" @endif>
           <a href="#"><i class="fa fa-book"></i> <span>Alket</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -30,6 +30,7 @@
           <ul class="treeview-menu">
             <li @if (Request::is('alket*')) class="active" @endif><a href="{{ url('alket') }}"><i class="fa fa-circle-o"></i>Alket Jual Beli</a></li>
             <li @if (Request::is('mediamassa*')) class="active" @endif><a href="{{ url('mediamassa') }}"><i class="fa fa-circle-o"></i>Alket Media Massa</a></li>
+            <li @if (Request::is('siup*')) class="active" @endif><a href="{{ url('siup') }}"><i class="fa fa-circle-o"></i>SIUP dan TDP</a></li>
           </ul>
         </li>
         <li @if (Request::is('lapppat*')) class="treeview active" @elseif (Request::is('cetak-laporan*')) class="treeview active" @elseif (Request::is('monitoring*')) class="treeview active" @else class="treeview" @endif>

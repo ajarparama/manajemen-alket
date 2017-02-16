@@ -18,6 +18,7 @@ Route::group(['middleware'=>['auth']], function () {
 	Route::resource('lapppat', 'LapPPATController');
 	Route::resource('alket', 'AlketController');
 	Route::resource('mediamassa', 'MediaMassaController');
+	Route::resource('siup', 'SIUPController');
 	Route::get('cetak-laporan', 'LapTrwController@index')->name('cetak-laporan');
 
 

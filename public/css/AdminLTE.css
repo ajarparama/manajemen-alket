@@ -1257,6 +1257,10 @@ li.logout {
  * Component: Form
  * ---------------
  */
+img.thumb-image {
+    max-width: 100%;
+}
+
 .form-control {
   border-radius: 0;
   box-shadow: none;
@@ -2103,6 +2107,11 @@ li.logout {
   padding: 0;
   list-style: none;
 }
+
+.timeline img {
+  max-width: 100%;
+}
+
 .timeline:before {
   content: '';
   position: absolute;
@@ -2745,6 +2754,15 @@ table.text-center th {
 .table.align td {
   text-align: right;
 }
+
+td.details-control {
+    background: url('../img/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../img/details_close.png') no-repeat center center;
+}
+
 /*
  * Component: Label
  * ----------------

@@ -46,9 +46,20 @@
                     </div>
                   </div>
 
+                  <div class="form-group {{ $errors->has('tes') ? 'has-error' : '' }}">
+                    {{ Form::label('file', 'Gambar') }}
+                    <input id="file" name="file" type="file">
+                    @if ($errors->has('file'))
+                      <span class="help-block">
+                        {{ $errors->first('file') }}
+                      </span>
+                    @endif
+                  </div>
+                  <div id="image-holder">@if (!empty($file_old)) <img src="{{ asset('img/mediamassa/'.$file_old) }}" class="thumb-image"> @else @endif</div>
+
                   <div class="form-group {{ $errors->has('deskripsi') ? 'has-error' : '' }}">
                     {{ Form::label('deskripsi', 'Deskripsi') }}
-                    <textarea class="deskripsi" id="deskripsi" name="deskripsi"></textarea>
+                    <textarea class="deskripsi" id="deskripsi" name="deskripsi">{{ $deskripsi_old }}</textarea>
                     @if ($errors->has('deskripsi'))
                       <span class="help-block">
                         {{ $errors->first('deskripsi') }}

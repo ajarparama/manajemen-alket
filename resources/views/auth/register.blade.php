@@ -57,6 +57,28 @@
                                 @endif
                         </div>
 
+                        <div class="form-group has-feedback{{ $errors->has('seksi') ? ' has-error' : '' }}">
+                                <select id="seksi" class="form-control" name="seksi" value="{{ old('seksi') }}">
+                                  <option value="7">Seksi Pelayanan</option>
+                                  <option value="8">Seksi PDI</option>
+                                  <option value="6">Seksi Waskon 1</option>
+                                  <option value="2">Seksi Waskon 2</option>
+                                  <option value="3">Seksi Waskon 3</option>
+                                  <option value="4">Seksi Waskon 4</option>
+                                  <option value="1">Seksi Eksten</option>
+                                  <option value="9">Subbag Umum</option>
+                                  <option value="10">Seksi Penagihan</option>
+                                  <option value="12">Seksi Pemeriksaan</option>
+                                  <option value="11">Fungsional</option>
+                                </select>
+
+                                @if ($errors->has('seksi'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('seksi') }}</strong>
+                                    </span>
+                                @endif
+                        </div>
+
                         <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
                                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>

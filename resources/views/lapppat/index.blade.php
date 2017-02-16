@@ -9,7 +9,11 @@
     <div class="col-md-12">
       <div class="box">
         <div class="box-header with-border">
+        @if (Auth::user()->seksi == 8)
           <a href="{{ route('lapppat.create') }}"><button type="button" class="btn btn-primary" >Tambah Data</button></a>
+        @else
+          <button type="button" class="btn btn-primary disabled" >Tambah Data</button>
+        @endif
         </div>
         <div class="box-body">
           <table class="table table-bordered">
@@ -25,7 +29,10 @@
                 <th>Jumlah <br> Data</th>
                 <th>Nilai Data</th>
                 <th>Jumlah <br> Alket</th>
+                @if (Auth::user()->seksi == 8)
                 <th>Opsi</th>
+                @else
+                @endif
               </tr>
             </thead>
             <tbody>
@@ -41,12 +48,15 @@
                 <td>{{ $lapppat->jml_data }}</td>
                 <td class="text-right">{{ number_format($lapppat->nilai_data, 0, "", ".") }}</td>
                 <td>{{ $lapppat->jml_alket }}</td>
+                @if (Auth::user()->seksi == 8)
                 <td>
                   <div class="btn-group">
                     <a class="btn btn-xs btn-primary" href="{{ route('lapppat.edit', $lapppat->id) }}"><i class="fa fa-edit"></i> Edit</a>
                     <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal-{{$lapppat->id}}"><i class="fa fa-trash"></i> Hapus</button>
                   </div>
                 </td>
+                @else
+                @endif
               </tr>
               @endforeach
             </tbody>
@@ -54,6 +64,7 @@
           {{ $lapppats->links() }}
 
           <!-- Delete Modal -->
+          @if (Auth::user()->seksi == 8)
           @foreach ($lapppats as $lapppat)
           <div class="modal fade" id="myModal-{{$lapppat->id}}" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -75,6 +86,8 @@
             </div>
           </div>
           @endforeach
+          @else
+          @endif
         </div>
       </div>
     </div>

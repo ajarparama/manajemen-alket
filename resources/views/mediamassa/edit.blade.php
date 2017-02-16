@@ -7,7 +7,7 @@
 
 @section('judul', 'Media Massa')
 
-@section('deskripsi', 'tambah alket media massa')
+@section('deskripsi', 'edit alket media massa')
 
 @section('content')
   <div class="row">
@@ -15,12 +15,12 @@
       <div class="box">
         <div class="box-header with-border">
           <i class="fa fa-edit"></i>
-          <h3 class="box-title">Input Alket Media Massa</h3>
+          <h3 class="box-title">Edit Alket Media Massa</h3>
         </div>
         <div class="box-body">
-          {!! Form::open([
+          {!! Form::model($mediamassa, [
             'url'     => route('mediamassa.store'), 
-            'method'  => 'post',
+            'method'  => 'put',
             'files'   => 'true',
             'class'   => 'box-body'
             ]) !!}
@@ -61,7 +61,7 @@
             }
         });
         function sendFile(file, editor, welEditable) {
-            data = new FormData();
+            data = "new FormData()";
             data.append("deskripsi", file);
             $.ajax({
                 data: data,

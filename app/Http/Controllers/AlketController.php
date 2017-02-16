@@ -21,6 +21,7 @@ class AlketController extends Controller
      */
     public function index(Request $request, Builder $htmlBuilder)
     {
+        $alket = "";
         $alkets = Alket::with('seksi')->get();
         if ($request->ajax()) {
             $query = Alket::with('seksi')->selectRaw('distinct alket.*');
@@ -33,10 +34,11 @@ class AlketController extends Controller
                 ->addColumn('action', function (Alket $alket) {
                 return '<div class="btn-group"> <a href="' . route('alket.edit', $alket->id) . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a> <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal-'.$alket->id.'"><i class="fa fa-trash"></i> Hapus</button>
                   </div>';
+
                 })
                 ->make(true);
         }
-        return view('alket.index')->with(compact('alkets'));
+        return view('alket.index')->with(compact('alket', 'alkets'));
     }
 
     /**
@@ -61,18 +63,22 @@ class AlketController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama'  => 'required',
-            'npwp'  => 'required',
+            'nama_penjual'  => 'required',
+            'npwp_penjual'  => 'required',
+            'nama_pembeli'  => 'required',
+            'npwp_pembeli'  => 'required',
             'nilai_data'    => 'required',
+            'nop'    => 'required',
             'jns_transaksi' => 'required',
             'tanggal'   => 'required',
-            'sumber'    => 'required',
-            'disposisi' => 'required'
             ]);
         $alket = new Alket;
-        $alket->nama = $request->input('nama');
-        $alket->npwp = $request->input('npwp');
+        $alket->nama_penjual = $request->input('nama_penjual');
+        $alket->npwp_penjual = $request->input('npwp_penjual');
+        $alket->nama_pembeli = $request->input('nama_pembeli');
+        $alket->npwp_pembeli = $request->input('npwp_pembeli');
         $alket->nilai_data = $request->input('nilai_data');
+        $alket->nop = $request->input('nop');
         $alket->jns_transaksi = $request->input('jns_transaksi');
         $alket->tanggal = $request->input('tanggal');
         $alket->sumber = $request->input('sumber');
@@ -103,12 +109,10 @@ class AlketController extends Controller
     public function edit($id)
     {
         $alket = Alket::find($id);
-        $list_disposisi = Seksi::select('id', 'nama')->get();
-        $list_disposisi2 = $list_disposisi->splice(3);
         $alket_disposisi = $alket->seksi()->get()->toArray();
         $alket_disposisi = array_pluck($alket_disposisi, 'id');
         $ppats = PPAT::pluck('nama');
-        return view('alket.edit')->with(compact('alket', 'list_disposisi', 'list_disposisi2', 'alket_disposisi', 'ppats'));
+        return view('alket.edit')->with(compact('alket', 'alket_disposisi', 'ppats'));
     }
 
     /**
@@ -121,18 +125,24 @@ class AlketController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nama'  => 'required',
-            'npwp'  => 'required',
+            'nama_penjual'  => 'required',
+            'npwp_penjual'  => 'required',
+            'nama_pembeli'  => 'required',
+            'npwp_pembeli'  => 'required',
             'nilai_data'    => 'required',
+            'nop'    => 'required',
             'jns_transaksi' => 'required',
             'tanggal'   => 'required',
             'sumber'    => 'required',
             'disposisi' => 'required'
             ]);
         $alket = Alket::find($id);
-        $alket->nama = $request->input('nama');
-        $alket->npwp = $request->input('npwp');
+        $alket->nama_penjual = $request->input('nama_penjual');
+        $alket->npwp_penjual = $request->input('npwp_penjual');
+        $alket->nama_pembeli = $request->input('nama_pembeli');
+        $alket->npwp_pembeli = $request->input('npwp_pembeli');
         $alket->nilai_data = $request->input('nilai_data');
+        $alket->nop = $request->input('nop');
         $alket->jns_transaksi = $request->input('jns_transaksi');
         $alket->tanggal = $request->input('tanggal');
         $alket->sumber = $request->input('sumber');

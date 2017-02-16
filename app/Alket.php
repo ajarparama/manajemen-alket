@@ -11,7 +11,7 @@ class Alket extends Model
     protected $table = 'alket';
 
     // Mass assignment
-    protected $fillable = ['nama', 'npwp', 'nilai_data', 'jns_transaksi', 'tanggal', 'sumber'];
+    protected $guarded = [];
 
     // Relationships
     public function seksi() {

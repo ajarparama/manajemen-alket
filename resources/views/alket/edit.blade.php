@@ -29,23 +29,48 @@
 
                 <div class="row">
                   <div class="col-md-6">
-                    <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
-                      {{ Form::label('nama', 'Nama WP') }}
-                      {{ Form::text('nama', null, array('class' => 'form-control', 'placeholder'=> 'Masukan Nama WP')) }}
-                      @if ($errors->has('nama'))
+                    <div class="form-group {{ $errors->has('nama_penjual') ? 'has-error' : '' }}">
+                      {{ Form::label('nama_penjual', 'Nama Penjual') }}
+                      {{ Form::text('nama_penjual', null, array('class' => 'form-control', 'placeholder'=> 'Masukan Nama Penjual')) }}
+                      @if ($errors->has('nama_penjual'))
                         <span class="help-block">
-                          {{ $errors->first('nama') }}
+                          {{ $errors->first('nama_penjual') }}
                         </span>
                       @endif
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="form-group {{ $errors->has('npwp') ? 'has-error' : '' }}">
-                      {{ Form::label('npwp', 'NPWP') }}
-                      <input data-inputmask="'mask': '99.999.999.9-999.999', 'removeMaskOnSubmit': true" class="form-control" placeholder="Masukan NPWP" name="npwp" id="npwp" value="{{ old( 'npwp', $alket->npwp ) }}">
-                      @if ($errors->has('npwp'))
+                    <div class="form-group {{ $errors->has('npwp_penjual') ? 'has-error' : '' }}">
+                      {{ Form::label('npwp_penjual', 'NPWP Penjual') }}
+                      <input data-inputmask="'mask': '99.999.999.9-999.999', 'removeMaskOnSubmit': true" class="form-control" placeholder="Masukan NPWP Penjual" name="npwp_penjual" id="npwp_penjual" value="{{ old( 'npwp_penjual', $alket->npwp_penjual ) }}">
+                      @if ($errors->has('npwp_penjual'))
                         <span class="help-block">
-                          {{ $errors->first('npwp') }}
+                          {{ $errors->first('npwp_penjual') }}
+                        </span>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('nama_pembeli') ? 'has-error' : '' }}">
+                      {{ Form::label('nama_pembeli', 'Nama Pembeli') }}
+                      {{ Form::text('nama_pembeli', null, array('class' => 'form-control', 'placeholder'=> 'Masukan Nama Pembeli')) }}
+                      @if ($errors->has('nama_pembeli'))
+                        <span class="help-block">
+                          {{ $errors->first('nama_pembeli') }}
+                        </span>
+                      @endif
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group {{ $errors->has('npwp_pembeli') ? 'has-error' : '' }}">
+                      {{ Form::label('npwp_pembeli', 'NPWP Pembeli') }}
+                      <input data-inputmask="'mask': '99.999.999.9-999.999', 'removeMaskOnSubmit': true" class="form-control" placeholder="Masukan NPWP Pembeli" name="npwp_pembeli" id="npwp_pembeli" value="{{ old( 'npwp_pembeli', $alket->npwp_pembeli ) }}">
+                      @if ($errors->has('npwp_pembeli'))
+                        <span class="help-block">
+                          {{ $errors->first('npwp_pembeli') }}
                         </span>
                       @endif
                     </div>
@@ -58,6 +83,16 @@
                   @if ($errors->has('nilai_data'))
                     <span class="help-block">
                       {{ $errors->first('nilai_data') }}
+                    </span>
+                  @endif
+                </div>
+
+                <div class="form-group {{ $errors->has('nop') ? 'has-error' : '' }}">
+                  {{ Form::label('nop', 'NOP') }}
+                  <input data-inputmask="'mask': '99.99.999.999.999-9999.9', 'removeMaskOnSubmit': true" class="form-control" placeholder="Masukan NOP" name="nop" id="nop" value="{{ old( 'nop', $alket->nop ) }}">
+                  @if ($errors->has('nop'))
+                    <span class="help-block">
+                      {{ $errors->first('nop') }}
                     </span>
                   @endif
                 </div>
@@ -78,18 +113,31 @@
                 </div>
 
                 <div class="form-group {{ $errors->has('tanggal') ? 'has-error' : '' }}">
-                <?php
+                <?php if (!empty($alket->tanggal)) {
                   $tanggal_awal = old( 'tanggal', $alket->tanggal );
-                  $pisah = explode("-", $tanggal_awal);
-                ?>
-                  {{ Form::label('tanggal', 'Tanggal') }}
-                  <input data-inputmask="'alias': 'dd/mm/yyyy'" placeholder="Masukan Tanggal" class="form-control" name="tanggal" id="tanggal" value="{{ $pisah[2].$pisah[1].$pisah[0] }}">
+                  $pisah = explode(" ", $tanggal_awal);
+                  $pisah = explode("-", $pisah[0]); ?>
+                  {{ Form::label('tanggal', 'Tanggal Alket') }}
+                  <input data-inputmask="'alias': 'dd/mm/yyyy'" placeholder="Masukan Tanggal Alket" class="form-control" name="tanggal" id="tanggal" value="{{ $pisah[2].$pisah[1].$pisah[0] }}">
                   @if ($errors->has('tanggal'))
                     <span class="help-block">
                       {{ $errors->first('tanggal') }}
                     </span>
                   @endif
                 </div>
+                
+                <?php
+                } else { ?>
+                  {{ Form::label('tanggal', 'Tanggal Alket') }}
+                  <input data-inputmask="'alias': 'dd/mm/yyyy'" placeholder="Masukan Tanggal Alket" class="form-control" name="tanggal" id="tanggal">
+                  @if ($errors->has('tanggal'))
+                    <span class="help-block">
+                      {{ $errors->first('tanggal') }}
+                    </span>
+                  @endif
+                </div>
+                <?php }
+                ?>
 
                 <div class="form-group {{ $errors->has('sumber') ? 'has-error' : '' }}">
                   {{ Form::label('sumber', 'Sumber Data') }}
@@ -111,36 +159,35 @@
                   <div class="row">
                     <div class="col-md-6">
                       <ul style="list-style: none; padding-left: 0;">
-                        @foreach ($list_disposisi as $disposisi)
-                        @if (in_array($disposisi->id, $alket_disposisi))
                         <li>
                           <label style="font-weight: normal;">
-                          {{ Form::checkbox('disposisi[]', $disposisi->id, true) }} {{ $disposisi->nama }}
+                          <input name="disposisi[]" type="checkbox" value="1" @if (in_array(1, $alket_disposisi)) checked @else @endif> Seksi Eksten
+                          </label>
                         </li>
-                        @else
                         <li>
                           <label style="font-weight: normal;">
-                          {{ Form::checkbox('disposisi[]', $disposisi->id, false) }} {{ $disposisi->nama }}
+                          <input name="disposisi[]" type="checkbox" value="2" @if (in_array(2, $alket_disposisi)) checked @else @endif> Seksi Waskon 2
+                          </label>
                         </li>
-                        @endif
-                        @endforeach
+                        <li>
+                          <label style="font-weight: normal;">
+                          <input name="disposisi[]" type="checkbox" value="3" @if (in_array(3, $alket_disposisi)) checked @else @endif> Seksi Waskon 3
+                          </label>
+                        </li>
                       </ul>
                     </div>
                     <div class="col-md-6">
                       <ul style="list-style: none; padding-left: 0;">
-                        @foreach ($list_disposisi2 as $disposisi)
-                        @if (in_array($disposisi->id, $alket_disposisi))
                         <li>
                           <label style="font-weight: normal;">
-                          {{ Form::checkbox('disposisi[]', $disposisi->id, true) }} {{ $disposisi->nama }}
+                          <input name="disposisi[]" type="checkbox" value="4" @if (in_array(4, $alket_disposisi)) checked @else @endif> Seksi Waskon 4
+                          </label>
                         </li>
-                        @else
                         <li>
                           <label style="font-weight: normal;">
-                          {{ Form::checkbox('disposisi[]', $disposisi->id, false) }} {{ $disposisi->nama }}
+                          <input name="disposisi[]" type="checkbox" value="5" @if (in_array(5, $alket_disposisi)) checked @else @endif> KPP Lain
+                          </label>
                         </li>
-                        @endif
-                        @endforeach
                       </ul>
                     </div>
                   </div>

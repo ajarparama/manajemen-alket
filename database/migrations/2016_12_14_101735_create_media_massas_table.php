@@ -19,8 +19,12 @@ class CreateMediaMassasTable extends Migration
             $table->string('nota_dinas');
             $table->string('sumber');
             $table->date('tgl_berita');
+            $table->string('file');
             $table->text('deskripsi');
+            $table->string('pengirim')->unsigned();
             $table->timestamps();
+
+            $table->foreign('pengirim')->references('nip')->on('users');
         });
     }
 

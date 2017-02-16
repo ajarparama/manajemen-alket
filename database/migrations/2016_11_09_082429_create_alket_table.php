@@ -15,11 +15,14 @@ class CreateAlketTable extends Migration
     {
         Schema::create('alket', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama');
-            $table->string('npwp');
+            $table->string('nama_penjual');
+            $table->string('npwp_penjual');
+            $table->string('nama_pembeli')->nullable();
+            $table->string('npwp_pembeli')->nullable();
             $table->integer('nilai_data');
+            $table->string('nop')->nullable();
             $table->string('jns_transaksi');
-            $table->date('tanggal');
+            $table->date('tanggal')->nullable();
             $table->string('sumber');
             $table->timestamps();
         });

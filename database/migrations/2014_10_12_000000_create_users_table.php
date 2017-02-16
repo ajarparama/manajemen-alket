@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('nip')->unique();
             $table->string('password');
             $table->string('userpic');
+            $table->integer('seksi')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });
