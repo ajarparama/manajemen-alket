@@ -13,7 +13,7 @@ class PPAT extends Model
     public $incrementing = false;
 
     // Mass assignment
-    protected $fillable = ['nama', 'npwp', 'alamat', 'no_telp', 'alamat', 'ar_nip'];
+    protected $fillable = ['nama', 'npwp', 'alamat', 'no_telp', 'kabupaten', 'ar_nip'];
 
     // Relationships
     public function lapppat() {

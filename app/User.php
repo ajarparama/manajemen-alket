@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // Relationships
+    public function seksi() {
+        return $this->belongsTo('App\Seksi', 'seksi');
+    }
 }

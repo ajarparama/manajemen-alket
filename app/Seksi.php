@@ -17,4 +17,9 @@ class Seksi extends Model
     public function alket() {
     	return $this->belongsToMany('App\Alket', 'disposisi', 'seksi_id', 'alket_id')->withTimestamps();
     }
+
+    public function anggota() {
+    	return $this->hasMany('App\User', 'seksi');
+    }
+
 }

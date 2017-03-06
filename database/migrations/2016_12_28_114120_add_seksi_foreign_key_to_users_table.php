@@ -14,7 +14,7 @@ class AddSeksiForeignKeyToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('seksi_id')->references('id')->on('tabel_seksi');
+            $table->foreign('seksi')->references('id')->on('tabel_seksi');
         });
     }
 

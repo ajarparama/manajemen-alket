@@ -33,19 +33,20 @@
             <li @if (Request::is('siup*')) class="active" @endif><a href="{{ url('siup') }}"><i class="fa fa-circle-o"></i>SIUP dan TDP</a></li>
           </ul>
         </li>
-        <li @if (Request::is('lapppat*')) class="treeview active" @elseif (Request::is('cetak-laporan*')) class="treeview active" @elseif (Request::is('monitoring*')) class="treeview active" @else class="treeview" @endif>
+        <li @if (Request::is('ppat*')) class="treeview active" @elseif (Request::is('lapppat*')) class="treeview active" @elseif (Request::is('cetak-laporan*')) class="treeview active" @elseif (Request::is('monitoring*')) class="treeview active" @else class="treeview" @endif>
           <a href="#"><i class="fa fa-address-book"></i> <span>PPAT</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
+            <li @if (Request::is('ppat*')) class="active" @endif ><a href="{{ url('ppat') }}"><i class="fa fa-circle-o"></i>Daftar PPAT</a></li>
             <li @if (Request::is('lapppat*')) class="active" @endif ><a href="{{ url('lapppat') }}"><i class="fa fa-circle-o"></i>Input Laporan</a></li>
             <li @if (Request::is('cetak-laporan*')) class="active" @endif><a href="{{ url('cetak-laporan') }}"><i class="fa fa-circle-o"></i>Cetak Laporan</a></li>
             <li @if (Request::is('monitoring*')) class="active" @endif><a href="{{ url('monitoring') }}"><i class="fa fa-circle-o"></i>Monitoring PPAT</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="fa fa-gear"></i> <span>Setting</span></a></li>
+        <li @if (Request::is('setting*')) class="active" @endif ><a href="{{ url('setting') }}"><i class="fa fa-gear"></i> <span>Setting</span></a></li>
         <form role="form" method="POST" action="{{ url('/logout') }}">
           {{ csrf_field() }}
           <li class="logout"><button type="submit" class="btn btn-logout btn-flat"><i class="fa fa-circle-o text-red"></i> <span> Logout</span></button></li>

@@ -21,7 +21,7 @@ class CreateMediaMassasTable extends Migration
             $table->date('tgl_berita');
             $table->string('file');
             $table->text('deskripsi');
-            $table->string('pengirim')->unsigned();
+            $table->string('pengirim');
             $table->timestamps();
 
             $table->foreign('pengirim')->references('nip')->on('users');

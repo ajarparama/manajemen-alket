@@ -15,12 +15,14 @@ Route::group(['middleware'=>['auth']], function () {
 	    return redirect('/home');
 	});
 
+	Route::resource('ppat', 'PPATController');
 	Route::resource('lapppat', 'LapPPATController');
 	Route::resource('alket', 'AlketController');
 	Route::resource('mediamassa', 'MediaMassaController');
 	Route::resource('siup', 'SIUPController');
 	Route::get('cetak-laporan', 'LapTrwController@index')->name('cetak-laporan');
 
+	Route::get('setting', 'SettingController@index');
 
 	Route::get('monitoring', 'MonitoringController@monppat');
 
