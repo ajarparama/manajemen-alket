@@ -26,6 +26,11 @@ class SettingController extends Controller
 
     public function daftar(Request $request)
     {
+        $this->validate($request, [
+            'nama'  => 'required|max:255',
+            'nip'  => 'required|numeric|unique:users',
+            'password' => 'required|min:5|confirmed',
+            ]);
         $daftar = User::create([
             'nama' => $request->input('nama'),
             'nip' => $request->input('nip'),
@@ -51,7 +56,6 @@ class SettingController extends Controller
         $user->nip = $request->input('nip');
         $user->userpic = $request->input('userpic');
         $user->seksi = $request->input('seksi');
-        $user->password = bcrypt($request->input('password'));
         $user->save();
 
         return redirect()->route('setting');
@@ -61,6 +65,6 @@ class SettingController extends Controller
     {
         if(!User::destroy($id)) return redirect()->back();
 
-        return redirect()->route('alket.index');
+        return redirect()->back();
     }
 }

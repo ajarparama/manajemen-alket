@@ -23,7 +23,9 @@ Route::group(['middleware'=>['auth']], function () {
 	Route::get('cetak-laporan', 'LapTrwController@index')->name('cetak-laporan');
 
 	Route::get('setting', ['as' => 'setting', 'uses' => 'SettingController@index']);
-	Route::get('setting.editpegawai', ['as' => 'setting.editpegawai', 'uses' => 'SettingController@editpegawai']);
+	Route::get('user/{id}/edit', ['as' => 'setting.editpegawai', 'uses' => 'SettingController@editpegawai']);
+	Route::put('user/{id}/update', ['as' => 'setting.updatepegawai', 'uses' => 'SettingController@updatepegawai']);
+	Route::delete('user/{id}/hapus', ['as' => 'setting.hapuspegawai', 'uses' => 'SettingController@hapuspegawai']);
 	Route::post('daftar', 'SettingController@daftar');
 
 	Route::get('monitoring', 'MonitoringController@monppat');

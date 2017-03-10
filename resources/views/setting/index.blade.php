@@ -27,7 +27,8 @@
                 </li>
               </ul>
 
-              <a href="#" class="btn btn-primary btn-block"><b>Edit Profil</b></a>
+                <a href="{{ route('setting.editpegawai', Auth::user()->id) }}" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editModal-{{Auth::user()->id}}"><b>Edit Profil</b></a>
+                <a href="{{ route('setting.editpegawai', Auth::user()->id) }}" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editModal-{{Auth::user()->id}}"><b>Ganti Password</b></a>
             </div>
             <!-- /.box-body -->
           </div>
@@ -60,11 +61,11 @@
                       <td><img class="user-table img-circle" src="{{ asset('img/'.$user->userpic) }}" alt="userpic-{{ $user->nip }}"></td>
                       <td>{{ $user->nama }}</td>
                       <td>{{ $user->nip }}</td>
-                      <td>{{ $seksi[Auth::user()->seksi] }}</td>
+                      <td>@if (!empty($seksi[$user->seksi])) {{ $seksi[$user->seksi] }} @else @endif</td>
                       <td>
                         <div class="btn-group">
                           <a href="{{ route('setting.editpegawai', $user->id) }}" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#editModal-{{$user->id}}"><i class="fa fa-edit"></i> Edit</a>
-                          <a href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>
+                          <a href="" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteModal-{{$user->id}}"><i class="fa fa-trash"></i> Hapus</a>
                         </div>
                       </td>
                     </tr>
@@ -151,7 +152,7 @@
                         </div>
 
                         {{ Form::label('userpic', 'Jenis Kelamin') }}
-                        <div class="radio" id="icheck">
+                        <div class="radio icheck">
                           <label>
                             <input name="userpic" id="userpic" type="radio" value="userpicm.jpg" checked="checked"> Laki-laki                  
                           </label>
@@ -170,6 +171,11 @@
                 </div>
                 
                 @foreach ($users as $user)
+                {!! Form::model($user, [
+                  'url'     => route('setting.updatepegawai', $user->id), 
+                  'method'  => 'put',
+                  'class'   => 'box-body'
+                  ]) !!}
                 <div class="modal fade" id="editModal-{{$user->id}}">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -177,13 +183,13 @@
                       {{ csrf_field() }}
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Tambah Pegawai</h4>
+                        <h4 class="modal-title" id="editModalLabel">Edit Pegawai</h4>
                       </div>
                       <div class="modal-body">
 
                         <div class="form-group has-feedback{{ $errors->has('nama') ? ' has-error' : '' }}">
                           {{ Form::label('nama', 'Nama') }}
-                          <input id="nama" type="text" class="form-control" name="nama" value="{{ old('nama') }}" placeholder="Masukkan Nama" required autofocus>
+                          <input id="nama" type="text" class="form-control" name="nama" value="{{ old('nama', $user->nama) }}" placeholder="Masukkan Nama" required autofocus>
 
                           @if ($errors->has('nama'))
                             <span class="help-block">
@@ -194,7 +200,7 @@
 
                         <div class="form-group has-feedback{{ $errors->has('nip') ? ' has-error' : '' }}">
                           {{ Form::label('nip', 'NIP Pendek') }}
-                          <input id="nip" type="text" class="form-control" name="nip" value="{{ old('nip') }}" placeholder="Masukkan NIP Pendek" required>
+                          <input id="nip" type="text" class="form-control" name="nip" value="{{ old('nip', $user->nip) }}" placeholder="Masukkan NIP Pendek" required>
 
                           @if ($errors->has('nip'))
                             <span class="help-block">
@@ -205,18 +211,18 @@
 
                         <div class="form-group has-feedback{{ $errors->has('seksi') ? ' has-error' : '' }}">
                           {{ Form::label('seksi', 'Seksi') }}
-                          <select id="seksi" class="form-control" name="seksi" value="{{ old('seksi') }}">
-                            <option value="7">Seksi Pelayanan</option>
-                            <option value="8">Seksi PDI</option>
-                            <option value="6">Seksi Waskon 1</option>
-                            <option value="2">Seksi Waskon 2</option>
-                            <option value="3">Seksi Waskon 3</option>
-                            <option value="4">Seksi Waskon 4</option>
-                            <option value="1">Seksi Eksten</option>
-                            <option value="9">Subbag Umum</option>
-                            <option value="10">Seksi Penagihan</option>
-                            <option value="12">Seksi Pemeriksaan</option>
-                            <option value="11">Fungsional</option>
+                          <select id="seksi" class="form-control" name="seksi" value="{{ old('seksi', $user->seksi) }}">
+                            <option value="7" @if ($user->seksi==7) selected="selected" @endif>Seksi Pelayanan</option>
+                            <option value="8" @if ($user->seksi==8) selected="selected" @endif>Seksi PDI</option>
+                            <option value="6" @if ($user->seksi==6) selected="selected" @endif>Seksi Waskon 1</option>
+                            <option value="2" @if ($user->seksi==2) selected="selected" @endif>Seksi Waskon 2</option>
+                            <option value="3" @if ($user->seksi==3) selected="selected" @endif>Seksi Waskon 3</option>
+                            <option value="4" @if ($user->seksi==4) selected="selected" @endif>Seksi Waskon 4</option>
+                            <option value="1" @if ($user->seksi==1) selected="selected" @endif>Seksi Eksten</option>
+                            <option value="9" @if ($user->seksi==9) selected="selected" @endif>Subbag Umum</option>
+                            <option value="10" @if ($user->seksi==10) selected="selected" @endif>Seksi Penagihan</option>
+                            <option value="12" @if ($user->seksi==12) selected="selected" @endif>Seksi Pemeriksaan</option>
+                            <option value="11" @if ($user->seksi==11) selected="selected" @endif>Fungsional</option>
                           </select>
 
                           @if ($errors->has('seksi'))
@@ -226,30 +232,8 @@
                           @endif
                         </div>
 
-                        <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
-                          {{ Form::label('password', 'Password') }}
-                          <input id="password" type="password" class="form-control" name="password" placeholder="Masukkan Password" required>
-
-                          @if ($errors->has('password'))
-                            <span class="help-block">
-                              <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                          @endif
-                        </div>
-
-                        <div class="form-group has-feedback{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                          {{ Form::label('password-confirm', 'Password Lagi') }}
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Ketik Ulang Password" required>
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                        </div>
-
                         {{ Form::label('userpic', 'Jenis Kelamin') }}
-                        <div class="radio" id="icheck">
+                        <div class="radio icheck">
                           <label>
                             <input name="userpic" id="userpic" type="radio" value="userpicm.jpg" checked="checked"> Laki-laki                  
                           </label>
@@ -259,10 +243,33 @@
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Daftar</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
                       </div>
                     </form>
+                    </div>
+                  </div>
+                </div>
+                {!! Form::close() !!}
+                @endforeach
+
+                @foreach ($users as $user)
+                <div class="modal fade" id="deleteModal-{{$user->id}}" tabindex="-1" role="dialog">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="deleteModalLabel">Hapus Pegawai</h4>
+                      </div>
+                      <div class="modal-body">
+                        Anda yakin ingin menghapus {{ $user->nama }} dari aplikasi ini?
+                      </div>
+                      <div class="modal-footer">
+                      {!! Form::model($user, ['url' => route('setting.hapuspegawai', $user->id) ,'method' => 'delete'] ) !!}
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                        {!! Form::submit('Hapus', ['class'=>'btn btn-danger']) !!}
+                      {!! Form::close()!!}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -350,9 +357,16 @@
 @section ('scripts')
 </script>
 <script src="{{ asset('js/icheck.min.js') }}"></script>
+@if (Session::has('errors'))
+  <script>
+    $(document).ready(function(){
+      $('#tambahPegawai').modal({show: true});
+    });
+  </script>
+@endif
 <script>
   $(function () {
-    $('#icheck').iCheck({
+    $('.icheck').iCheck({
       checkboxClass: 'icheckbox_square-blue',
       radioClass: 'iradio_square-blue',
       increaseArea: '20%' // optional
