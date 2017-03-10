@@ -22,7 +22,9 @@ Route::group(['middleware'=>['auth']], function () {
 	Route::resource('siup', 'SIUPController');
 	Route::get('cetak-laporan', 'LapTrwController@index')->name('cetak-laporan');
 
-	Route::get('setting', 'SettingController@index');
+	Route::get('setting', ['as' => 'setting', 'uses' => 'SettingController@index']);
+	Route::get('setting.editpegawai', ['as' => 'setting.editpegawai', 'uses' => 'SettingController@editpegawai']);
+	Route::post('daftar', 'SettingController@daftar');
 
 	Route::get('monitoring', 'MonitoringController@monppat');
 

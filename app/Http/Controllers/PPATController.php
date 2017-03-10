@@ -15,7 +15,7 @@ class PPATController extends Controller
      */
     public function index()
     {
-        $ppats = PPAT::paginate(10);
+        $ppats = PPAT::all();
         return view('ppat.index')->with(compact('ppats'));
     }
 
@@ -26,7 +26,7 @@ class PPATController extends Controller
      */
     public function create()
     {
-        //
+        return view('ppat.create');
     }
 
     /**

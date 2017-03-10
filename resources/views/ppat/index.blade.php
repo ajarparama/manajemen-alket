@@ -10,7 +10,7 @@
       <div class="box">
         <div class="box-header with-border">
         @if (Auth::user()->seksi == 8)
-          <a href="#"><button type="button" class="btn btn-primary" >Tambah Data</button></a>
+          <a href="{{ route('ppat.create') }}"><button type="button" class="btn btn-primary" >Tambah Data</button></a>
         @else
           <button type="button" class="btn btn-primary disabled" >Tambah Data</button>
         @endif
@@ -51,7 +51,6 @@
                   @endforeach
                 </tbody>
               </table>
-            {{ $ppats->links() }}
             </div>
           </div> 
 
@@ -77,4 +76,19 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section ('scripts')
+
+  $(function () {
+    $('#dataTableBuilder').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+
 @endsection

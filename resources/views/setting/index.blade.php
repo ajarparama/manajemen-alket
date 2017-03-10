@@ -4,6 +4,10 @@
 
 @section('deskripsi', 'atau pengaturan')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/blue.css') }}">
+@endsection
+
 @section('content')
   <div class="row">
     <div class="col-md-3">
@@ -34,11 +38,12 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#pegawai" data-toggle="tab">Pegawai</a></li>
-              <li><a href="#settings" data-toggle="tab">Settings</a></li>
+              <li><a href="#wilayah" data-toggle="tab">Wilayah KPP</a></li>
+              <li><a href="#datakantor" data-toggle="tab">Data Kantor</a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="pegawai">
-                <a href=""><button type="button" class="btn btn-primary">Tambah Pegawai</button></a>
+                <a href="#"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahPegawai">Tambah Pegawai</button></a>
                 <table class="table">
                   <thead>
                     <tr>
@@ -58,7 +63,7 @@
                       <td>{{ $seksi[Auth::user()->seksi] }}</td>
                       <td>
                         <div class="btn-group">
-                          <a href="" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                          <a href="{{ route('setting.editpegawai', $user->id) }}" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#editModal-{{$user->id}}"><i class="fa fa-edit"></i> Edit</a>
                           <a href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>
                         </div>
                       </td>
@@ -67,9 +72,219 @@
                   </tbody>
                 </table>
 
+                <div class="modal fade" id="tambahPegawai">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <form role="form" method="POST" action="{{ url('daftar') }}">
+                      {{ csrf_field() }}
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Tambah Pegawai</h4>
+                      </div>
+                      <div class="modal-body">
+
+                        <div class="form-group has-feedback{{ $errors->has('nama') ? ' has-error' : '' }}">
+                          {{ Form::label('nama', 'Nama') }}
+                          <input id="nama" type="text" class="form-control" name="nama" value="{{ old('nama') }}" placeholder="Masukkan Nama" required autofocus>
+
+                          @if ($errors->has('nama'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('nama') }}</strong>
+                            </span>
+                          @endif
+                        </div>
+
+                        <div class="form-group has-feedback{{ $errors->has('nip') ? ' has-error' : '' }}">
+                          {{ Form::label('nip', 'NIP Pendek') }}
+                          <input id="nip" type="text" class="form-control" name="nip" value="{{ old('nip') }}" placeholder="Masukkan NIP Pendek" required>
+
+                          @if ($errors->has('nip'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('nip') }}</strong>
+                            </span>
+                          @endif
+                        </div>
+
+                        <div class="form-group has-feedback{{ $errors->has('seksi') ? ' has-error' : '' }}">
+                          {{ Form::label('seksi', 'Seksi') }}
+                          <select id="seksi" class="form-control" name="seksi" value="{{ old('seksi') }}">
+                            <option value="7">Seksi Pelayanan</option>
+                            <option value="8">Seksi PDI</option>
+                            <option value="6">Seksi Waskon 1</option>
+                            <option value="2">Seksi Waskon 2</option>
+                            <option value="3">Seksi Waskon 3</option>
+                            <option value="4">Seksi Waskon 4</option>
+                            <option value="1">Seksi Eksten</option>
+                            <option value="9">Subbag Umum</option>
+                            <option value="10">Seksi Penagihan</option>
+                            <option value="12">Seksi Pemeriksaan</option>
+                            <option value="11">Fungsional</option>
+                          </select>
+
+                          @if ($errors->has('seksi'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('seksi') }}</strong>
+                            </span>
+                          @endif
+                        </div>
+
+                        <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
+                          {{ Form::label('password', 'Password') }}
+                          <input id="password" type="password" class="form-control" name="password" placeholder="Masukkan Password" required>
+
+                          @if ($errors->has('password'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                          @endif
+                        </div>
+
+                        <div class="form-group has-feedback{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                          {{ Form::label('password-confirm', 'Password Lagi') }}
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Ketik Ulang Password" required>
+
+                                @if ($errors->has('password_confirmation'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                    </span>
+                                @endif
+                        </div>
+
+                        {{ Form::label('userpic', 'Jenis Kelamin') }}
+                        <div class="radio" id="icheck">
+                          <label>
+                            <input name="userpic" id="userpic" type="radio" value="userpicm.jpg" checked="checked"> Laki-laki                  
+                          </label>
+                          <label>
+                            <input name="userpic" id="userpic" type="radio" value="userpicf.jpg"> Perempuan 
+                          </label>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Daftar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+                
+                @foreach ($users as $user)
+                <div class="modal fade" id="editModal-{{$user->id}}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <form role="form" method="POST" action="{{ url('daftar') }}">
+                      {{ csrf_field() }}
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Tambah Pegawai</h4>
+                      </div>
+                      <div class="modal-body">
+
+                        <div class="form-group has-feedback{{ $errors->has('nama') ? ' has-error' : '' }}">
+                          {{ Form::label('nama', 'Nama') }}
+                          <input id="nama" type="text" class="form-control" name="nama" value="{{ old('nama') }}" placeholder="Masukkan Nama" required autofocus>
+
+                          @if ($errors->has('nama'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('nama') }}</strong>
+                            </span>
+                          @endif
+                        </div>
+
+                        <div class="form-group has-feedback{{ $errors->has('nip') ? ' has-error' : '' }}">
+                          {{ Form::label('nip', 'NIP Pendek') }}
+                          <input id="nip" type="text" class="form-control" name="nip" value="{{ old('nip') }}" placeholder="Masukkan NIP Pendek" required>
+
+                          @if ($errors->has('nip'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('nip') }}</strong>
+                            </span>
+                          @endif
+                        </div>
+
+                        <div class="form-group has-feedback{{ $errors->has('seksi') ? ' has-error' : '' }}">
+                          {{ Form::label('seksi', 'Seksi') }}
+                          <select id="seksi" class="form-control" name="seksi" value="{{ old('seksi') }}">
+                            <option value="7">Seksi Pelayanan</option>
+                            <option value="8">Seksi PDI</option>
+                            <option value="6">Seksi Waskon 1</option>
+                            <option value="2">Seksi Waskon 2</option>
+                            <option value="3">Seksi Waskon 3</option>
+                            <option value="4">Seksi Waskon 4</option>
+                            <option value="1">Seksi Eksten</option>
+                            <option value="9">Subbag Umum</option>
+                            <option value="10">Seksi Penagihan</option>
+                            <option value="12">Seksi Pemeriksaan</option>
+                            <option value="11">Fungsional</option>
+                          </select>
+
+                          @if ($errors->has('seksi'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('seksi') }}</strong>
+                            </span>
+                          @endif
+                        </div>
+
+                        <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
+                          {{ Form::label('password', 'Password') }}
+                          <input id="password" type="password" class="form-control" name="password" placeholder="Masukkan Password" required>
+
+                          @if ($errors->has('password'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                          @endif
+                        </div>
+
+                        <div class="form-group has-feedback{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                          {{ Form::label('password-confirm', 'Password Lagi') }}
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Ketik Ulang Password" required>
+
+                                @if ($errors->has('password_confirmation'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                    </span>
+                                @endif
+                        </div>
+
+                        {{ Form::label('userpic', 'Jenis Kelamin') }}
+                        <div class="radio" id="icheck">
+                          <label>
+                            <input name="userpic" id="userpic" type="radio" value="userpicm.jpg" checked="checked"> Laki-laki                  
+                          </label>
+                          <label>
+                            <input name="userpic" id="userpic" type="radio" value="userpicf.jpg"> Perempuan 
+                          </label>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Daftar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+                @endforeach
+
               </div>
 
-              <div class="tab-pane" id="settings">
+
+              <div class="tab-pane" id="wilayah">
+                <a href="#"><button class="btn btn-primary" data-toggle="modal" data-target="#tambahPegawai">Tambah Wilayah</button></a>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Nama Wilayah</th>
+                      <th>Opsi</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+
+              <div class="tab-pane" id="datakantor">
                 <form class="form-horizontal">
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Nama Kantor</label>
@@ -106,13 +321,7 @@
                       <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
 
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                    </div>
-                  </div>
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                       <div class="checkbox">
@@ -136,4 +345,17 @@
           <!-- /.nav-tabs-custom -->
     </div>
   </div>
+@endsection
+
+@section ('scripts')
+</script>
+<script src="{{ asset('js/icheck.min.js') }}"></script>
+<script>
+  $(function () {
+    $('#icheck').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
 @endsection

@@ -23,4 +23,44 @@ class SettingController extends Controller
     	$seksi = Seksi::pluck('nama', 'id');
         return view('setting.index')->with(compact('seksi', 'users'));
     }
+
+    public function daftar(Request $request)
+    {
+        $daftar = User::create([
+            'nama' => $request->input('nama'),
+            'nip' => $request->input('nip'),
+            'userpic' => $request->input('userpic'),
+            'seksi' => $request->input('seksi'),
+            'password' => bcrypt($request->input('password')),
+        ]);
+
+        return redirect()->route('setting');
+    }
+
+    public function editpegawai($id)
+    {
+        $user = User::find($id);
+
+        return view('setting.index');
+    }
+
+    public function updatepegawai(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->nama = $request->input('nama');
+        $user->nip = $request->input('nip');
+        $user->userpic = $request->input('userpic');
+        $user->seksi = $request->input('seksi');
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        return redirect()->route('setting');
+    }
+
+    public function hapuspegawai($id)
+    {
+        if(!User::destroy($id)) return redirect()->back();
+
+        return redirect()->route('alket.index');
+    }
 }

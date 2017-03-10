@@ -54,6 +54,16 @@ class HomeController extends Controller
         //     ->get();
         // return $jml_data;
 
+        $chart_disposisi = DB::table('bulan')
+            ->selectRaw("SUM(IFNULL(nilai_data,0)) AS nilai")
+            ->leftJoin('alket', function($join) {
+                $join->on(DB::raw("strftime('%m', alket.created_at)"), '=', 'bulan.no')
+                     ->whereYear('alket.created_at', '=', date("Y"));
+            })
+            ->groupBy('bulan.id')
+            ->orderBy('bulan.id')
+            ->pluck('nilai');
+
         $chart_data = DB::table('bulan')
             ->selectRaw("SUM(IFNULL(jml_data,0)) AS data")
             ->leftJoin('tabel_lapppat', function($join) {
@@ -87,6 +97,6 @@ class HomeController extends Controller
             ->where('tahun', '=', date("Y"))
             ->count();
 
-        return view('home')->with(compact('nama_bulan', 'widget_alket', 'widget_nilai', 'widget_lap'))->with('chart_data', json_encode($chart_data, JSON_NUMERIC_CHECK))->with('chart_alket', json_encode($chart_alket, JSON_NUMERIC_CHECK));
+        return view('home')->with(compact('nama_bulan', 'widget_alket', 'widget_nilai', 'widget_lap'))->with('chart_data', json_encode($chart_data, JSON_NUMERIC_CHECK))->with('chart_alket', json_encode($chart_alket, JSON_NUMERIC_CHECK))->with('chart_disposisi', json_encode($chart_disposisi, JSON_NUMERIC_CHECK));
     }
 }
