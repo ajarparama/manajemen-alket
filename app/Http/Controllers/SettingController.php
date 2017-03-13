@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Seksi;
 use App\User;
+use App\Wilayah;
 use DB;
 
 class SettingController extends Controller
@@ -21,7 +22,8 @@ class SettingController extends Controller
                     ->orderBy('seksi', 'desc')
                     ->paginate(20);
     	$seksi = Seksi::pluck('nama', 'id');
-        return view('setting.index')->with(compact('seksi', 'users'));
+        $wilayahs = DB::table('wilayah_kpp')->get();
+        return view('setting.index')->with(compact('seksi', 'users', 'wilayahs'));
     }
 
     public function daftar(Request $request)
@@ -45,6 +47,7 @@ class SettingController extends Controller
     public function editpegawai($id)
     {
         $user = User::find($id);
+        $seksi = Seksi::pluck('nama', 'id');
 
         return view('setting.index');
     }
@@ -64,6 +67,35 @@ class SettingController extends Controller
     public function hapuspegawai($id)
     {
         if(!User::destroy($id)) return redirect()->back();
+
+        return redirect()->back();
+    }
+
+    public function tambahwilayah(Request $request)
+    {
+        $wilayah = DB::table('wilayah_kpp')->insert([
+            'nama' => $request->input('nama_wilayah'),
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function editwilayah($id)
+    {
+        $wilayah = DB::table('wilayah_kpp')
+                        ->where('id', $id)
+                        ->get();
+
+        return view('setting.index');
+    }
+
+    public function updatewilayah(Request $request, $id)
+    {
+        $wilayah = DB::table('wilayah_kpp')
+                        ->where('id', $id)
+                        ->update([
+                            'nama' => $request->input('nama_wilayah'),
+        ]);
 
         return redirect()->back();
     }

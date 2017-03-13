@@ -27,6 +27,9 @@ Route::group(['middleware'=>['auth']], function () {
 	Route::put('user/{id}/update', ['as' => 'setting.updatepegawai', 'uses' => 'SettingController@updatepegawai']);
 	Route::delete('user/{id}/hapus', ['as' => 'setting.hapuspegawai', 'uses' => 'SettingController@hapuspegawai']);
 	Route::post('daftar', 'SettingController@daftar');
+	Route::post('tambahwilayah', 'SettingController@tambahwilayah');
+	Route::get('wilayah/{id}/edit', ['as' => 'setting.editwilayah', 'uses' => 'SettingController@editwilayah']);
+	Route::put('wilayah/{id}/update', ['as' => 'setting.updatewilayah', 'uses' => 'SettingController@updatewilayah']);
 
 	Route::get('monitoring', 'MonitoringController@monppat');
 

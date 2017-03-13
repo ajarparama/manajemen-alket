@@ -171,16 +171,14 @@
                 </div>
                 
                 @foreach ($users as $user)
-                {!! Form::model($user, [
-                  'url'     => route('setting.updatepegawai', $user->id), 
-                  'method'  => 'put',
-                  'class'   => 'box-body'
-                  ]) !!}
                 <div class="modal fade" id="editModal-{{$user->id}}">
                   <div class="modal-dialog">
                     <div class="modal-content">
-                      <form role="form" method="POST" action="{{ url('daftar') }}">
-                      {{ csrf_field() }}
+                      {!! Form::model($user, [
+                        'url'     => route('setting.updatepegawai', $user->id), 
+                        'method'  => 'put',
+                        'class'   => 'box-body'
+                        ]) !!}
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="editModalLabel">Edit Pegawai</h4>
@@ -246,11 +244,10 @@
                         <button type="submit" class="btn btn-primary">Simpan</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
                       </div>
-                    </form>
+                    {!! Form::close() !!}
                     </div>
                   </div>
                 </div>
-                {!! Form::close() !!}
                 @endforeach
 
                 @foreach ($users as $user)
@@ -279,7 +276,7 @@
 
 
               <div class="tab-pane" id="wilayah">
-                <a href="#"><button class="btn btn-primary" data-toggle="modal" data-target="#tambahPegawai">Tambah Wilayah</button></a>
+                <a href="#"><button class="btn btn-primary" data-toggle="modal" data-target="#tambahWilayah">Tambah Wilayah</button></a>
                 <table class="table">
                   <thead>
                     <tr>
@@ -288,7 +285,91 @@
                       <th>Opsi</th>
                     </tr>
                   </thead>
+                  <tbody>
+                    @foreach ($wilayahs as $index => $wilayah)
+                    <tr>
+                      <td>{{ $index+1 }}</td>
+                      <td>{{ $wilayah->nama }}</td>
+                      <td>
+                        <div class="btn-group">
+                          <a href="{{ route('setting.editwilayah', $wilayah->id) }}" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#editWilayah-{{$wilayah->id}}"><i class="fa fa-edit"></i> Edit</a>
+                          <a href="" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteModal-{{$wilayah->id}}"><i class="fa fa-trash"></i> Hapus</a>
+                        </div>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
                 </table>
+
+                <div class="modal fade" id="tambahWilayah">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <form role="form" method="POST" action="{{ url('tambahwilayah') }}">
+                      {{ csrf_field() }}
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Tambah Wilayah</h4>
+                      </div>
+                      <div class="modal-body">
+
+                        <div class="form-group has-feedback{{ $errors->has('nama_wilayah') ? ' has-error' : '' }}">
+                          {{ Form::label('nama_wilayah', 'Nama Wilayah') }}
+                          <input id="nama_wilayah" type="text" class="form-control" name="nama_wilayah" value="{{ old('nama_wilayah') }}" placeholder="Masukkan Nama Wilayah" required autofocus>
+
+                          @if ($errors->has('nama_wilayah'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('nama_wilayah') }}</strong>
+                            </span>
+                          @endif
+                        </div>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+
+                @foreach ($wilayahs as $wilayah)
+                <div class="modal fade" id="editWilayah-{{$wilayah->id}}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      {!! Form::model($wilayah, [
+                        'url'     => route('setting.updatewilayah', $wilayah->id), 
+                        'method'  => 'put',
+                        'class'   => 'box-body'
+                        ]) !!}
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Wilayah</h4>
+                      </div>
+                      <div class="modal-body">
+
+                        <div class="form-group has-feedback{{ $errors->has('nama_wilayah') ? ' has-error' : '' }}">
+                          {{ Form::label('nama_wilayah', 'Nama Wilayah') }}
+                          <input id="nama_wilayah" type="text" class="form-control" name="nama_wilayah" value="{{ $wilayah->nama }}" placeholder="Masukkan Nama Wilayah" required autofocus>
+
+                          @if ($errors->has('nama_wilayah'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('nama_wilayah') }}</strong>
+                            </span>
+                          @endif
+                        </div>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                      </div>
+                    {!! Form::close()!!}
+                    </div>
+                  </div>
+                </div>
+                @endforeach
+
               </div>
 
               <div class="tab-pane" id="datakantor">

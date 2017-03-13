@@ -15,6 +15,7 @@ class CreateWilayahKppTable extends Migration
     {
         Schema::create('wilayah_kpp', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nama');
             $table->timestamps();
         });
     }
