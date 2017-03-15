@@ -293,7 +293,7 @@
                       <td>
                         <div class="btn-group">
                           <a href="{{ route('setting.editwilayah', $wilayah->id) }}" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#editWilayah-{{$wilayah->id}}"><i class="fa fa-edit"></i> Edit</a>
-                          <a href="" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteModal-{{$wilayah->id}}"><i class="fa fa-trash"></i> Hapus</a>
+                          <a href="" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteWilayah-{{$wilayah->id}}"><i class="fa fa-trash"></i> Hapus</a>
                         </div>
                       </td>
                     </tr>
@@ -368,60 +368,79 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="modal fade" id="deleteWilayah-{{$wilayah->id}}" tabindex="-1" role="dialog">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="deleteModalLabel">Hapus Pegawai</h4>
+                      </div>
+                      <div class="modal-body">
+                        Anda yakin ingin menghapus {{ $wilayah->nama }} dari aplikasi ini?
+                      </div>
+                      <div class="modal-footer">
+                      {!! Form::model($wilayah, ['url' => route('setting.hapuswilayah', $wilayah->id) ,'method' => 'delete'] ) !!}
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                        {!! Form::submit('Hapus', ['class'=>'btn btn-danger']) !!}
+                      {!! Form::close()!!}
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 @endforeach
 
               </div>
 
               <div class="tab-pane" id="datakantor">
-                <form class="form-horizontal">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('setting.updatesetting') }}">
+                      {{ csrf_field() }}
                   <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Nama Kantor</label>
+                    <label for="nama_kantor" class="col-sm-2 control-label">Nama Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputName" placeholder="Nama Kantor">
+                      <input type="text" class="form-control" id="nama_kantor" name="nama_kantor" value="{{ $array_settings[0] }}" placeholder="Misal: Kantor Pelayanan Pajak Pratama Pangkalan Bun">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Lokasi Kantor</label>
+                    <label for="lokasi_kantor" class="col-sm-2 control-label">Lokasi Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Kabupaten/kota">
+                      <input type="text" class="form-control" id="lokasi_kantor" name="lokasi_kantor" value="{{ $array_settings[1] }}" placeholder="Misal: Pangkalan Bun">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Nama Kanwil</label>
+                    <label for="nama_kakap" class="col-sm-2 control-label">Nama Kepala Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Nama Kanwil">
+                      <input type="text" class="form-control" id="nama_kakap" name="nama_kakap" value="{{ $array_settings[2] }}" placeholder="Masukkan Nama Kepala Kantor">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Lokasi Kanwil</label>
+                    <label for="nip_kakap" class="col-sm-2 control-label">NIP Kepala Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Kabupaten/kota">
+                      <input type="number" class="form-control" id="nip_kakap" name="nip_kakap" value="{{ $array_settings[3] }}" placeholder="Masukkan NIP Panjang">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+                    <label for="nama_kanwil" class="col-sm-2 control-label">Nama Kanwil</label>
 
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                      <input type="text" class="form-control" id="nama_kanwil" name="nama_kanwil" value="{{ $array_settings[4] }}" placeholder="Misal: Kantor Wilayah DJP Kalimantan Selatan dan Tengah">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="lokasi_kanwil" class="col-sm-2 control-label">Lokasi Kanwil</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="lokasi_kanwil" name="lokasi_kanwil" value="{{ $array_settings[5] }}" placeholder="Misal: Banjarmasin">
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-danger">Submit</button>
+                      <button type="submit" class="btn btn-danger">Simpan</button>
                     </div>
                   </div>
                 </form>

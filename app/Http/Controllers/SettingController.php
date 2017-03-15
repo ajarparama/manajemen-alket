@@ -23,7 +23,10 @@ class SettingController extends Controller
                     ->paginate(20);
     	$seksi = Seksi::pluck('nama', 'id');
         $wilayahs = DB::table('wilayah_kpp')->get();
-        return view('setting.index')->with(compact('seksi', 'users', 'wilayahs'));
+        $settings = DB::table('setting')->get();
+        $array_settings = $settings->pluck('value');
+
+        return view('setting.index')->with(compact('seksi', 'users', 'wilayahs', 'settings', 'array_settings'));
     }
 
     public function daftar(Request $request)
@@ -95,6 +98,51 @@ class SettingController extends Controller
                         ->where('id', $id)
                         ->update([
                             'nama' => $request->input('nama_wilayah'),
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function hapuswilayah($id)
+    {
+        $wilayah = DB::table('wilayah_kpp')
+                        ->where('id', $id)
+                        ->delete();
+
+        return redirect()->back();
+    }
+
+    public function updatedatakantor(Request $request)
+    {
+        $nama_kantor = DB::table('setting')
+                        ->where('id', 1)
+                        ->update([
+                            'value' => $request->input('nama_kantor'),
+        ]);
+        $lokasi_kantor = DB::table('setting')
+                        ->where('id', 2)
+                        ->update([
+                            'value' => $request->input('lokasi_kantor'),
+        ]);
+        $nama_kakap = DB::table('setting')
+                        ->where('id', 3)
+                        ->update([
+                            'value' => $request->input('nama_kakap'),
+        ]);
+        $nip_kakap = DB::table('setting')
+                        ->where('id', 4)
+                        ->update([
+                            'value' => $request->input('nip_kakap'),
+        ]);
+        $nama_kanwil = DB::table('setting')
+                        ->where('id', 5)
+                        ->update([
+                            'value' => $request->input('nama_kanwil'),
+        ]);
+        $lokasi_kanwil = DB::table('setting')
+                        ->where('id', 6)
+                        ->update([
+                            'value' => $request->input('lokasi_kanwil'),
         ]);
 
         return redirect()->back();

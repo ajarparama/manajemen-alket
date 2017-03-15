@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call('TabelArTableSeeder');
         $this->call('TabelPpatTableSeeder');
         $this->call('TabelSeksiTableSeeder');
+        $this->call('SettingTableSeeder');
     }
 }

@@ -61,8 +61,8 @@
             <p>
               KEMENTERIAN KEUANGAN REPUBLIK INDONESIA <br>
               DIREKTORAT JENDERAL PAJAK <br>
-              KANTOR WILAYAH  DJP KALIMANTAN SELATAN DAN TENGAH <br>
-              KANTOR PELAYANAN PAJAK PRATAMA PANGKALAN BUN <br>
+              {{ strtoupper($array_settings[4]) }} <br>
+              {{ strtoupper($array_settings[0]) }} <br>
             </p>
           </div>
         </div>
@@ -72,8 +72,8 @@
             <p>Yth.</p>
           </div>
           <div class="col-xs-10 kakanwil text-left">
-            <p>Kepala Kantor Wilayah DJP Kalimantan Selatan dan Tengah</p>
-            <p>Banjarmasin</p>
+            <p>Kepala {{ $array_settings[4] }}</p>
+            <p>{{ $array_settings[5] }}</p>
           </div>
         </div>
 
@@ -129,9 +129,10 @@
         </tr>
       </thead>
       <tbody>
+        @for ($i=0; $i<count($wilayahs); $i++)
         <tr>
           <th></th>
-          <th><u><strong>KAB. KOTAWARINGIN BARAT</strong></u></th>
+          <th><u><strong>KAB. {{ strtoupper($wilayahs[$i]) }}</strong></u></th>
           <th></th>
           <th></th>
           <th></th>
@@ -143,150 +144,65 @@
           <th></th>
           <th></th>
         </tr>
-        @foreach ($ppatkobars as $index => $ppatkobar)
+        @foreach ($ppats[$i] as $index => $ppat)
           <tr>
             <td>{{ $index +1 }}</td>
-            <td>{{ $ppatkobar->nama }}</td>
-            <td>{{ $ppatkobar->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('jml_data') }}</td>
-            <td>{{ number_format($ppatkobar->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('nilai_data'), 0, "", ".") }}</td>
-            <td>{{ $ppatkobar->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('jml_data') }}</td>
-            <td>{{ number_format($ppatkobar->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('nilai_data'), 0, "", ".") }}</td>
-            <td>{{ $ppatkobar->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('jml_data') }}</td>
-            <td>{{ number_format($ppatkobar->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('nilai_data'), 0, "", ".") }}</td>
-            <td>{{ $ppatkobar->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('jml_alket') }}</td>
-            <td>{{ $ppatkobar->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('jml_alket') }}</td>
-            <td>{{ $ppatkobar->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('jml_alket') }}</td>
+            <td>{{ $ppat->nama }}</td>
+            <td>{{ $ppat->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('jml_data') }}</td>
+            <td>{{ number_format($ppat->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('nilai_data'), 0, "", ".") }}</td>
+            <td>{{ $ppat->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('jml_data') }}</td>
+            <td>{{ number_format($ppat->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('nilai_data'), 0, "", ".") }}</td>
+            <td>{{ $ppat->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('jml_data') }}</td>
+            <td>{{ number_format($ppat->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('nilai_data'), 0, "", ".") }}</td>
+            <td>{{ $ppat->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('jml_alket') }}</td>
+            <td>{{ $ppat->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('jml_alket') }}</td>
+            <td>{{ $ppat->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('jml_alket') }}</td>
             <td>-</td>
           </tr>
         @endforeach
+        
         <tr class="total">
           <td></td>
           <td class="text-center">JUMLAH</td>
-          <td>{{ $kobarjml34->sum('jml_data') }}</td>
-          <td>{{ number_format($kobarjml34->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $kobarjml56->sum('jml_data') }}</td>
-          <td>{{ number_format($kobarjml56->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $kobarjml78->sum('jml_data') }}</td>
-          <td>{{ number_format($kobarjml78->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $kobarjml34->sum('jml_alket') }}</td>
-          <td>{{ $kobarjml56->sum('jml_alket') }}</td>
-          <td>{{ $kobarjml78->sum('jml_alket') }}</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <th></th>
-          <th><u><strong>KAB. LAMANDAU</strong></u></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-        @foreach ($ppatlamandaus as $index => $ppatlamandau)
-          <tr>
-            <td>{{ $index +1 }}</td>
-            <td>{{ $ppatlamandau->nama }}</td>
-            <td>{{ $ppatlamandau->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('jml_data') }}</td>
-            <td>{{ number_format($ppatlamandau->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('nilai_data'), 0, "", ".") }}</td>
-            <td>{{ $ppatlamandau->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('jml_data') }}</td>
-            <td>{{ number_format($ppatlamandau->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('nilai_data'), 0, "", ".") }}</td>
-            <td>{{ $ppatlamandau->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('jml_data') }}</td>
-            <td>{{ number_format($ppatlamandau->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('nilai_data'), 0, "", ".") }}</td>
-            <td>{{ $ppatlamandau->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('jml_alket') }}</td>
-            <td>{{ $ppatlamandau->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('jml_alket') }}</td>
-            <td>{{ $ppatlamandau->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('jml_alket') }}</td>
-            <td>-</td>
-          </tr>
-        @endforeach
-        <tr class="total">
-          <td></td>
-          <td class="text-center">JUMLAH</td>
-          <td>{{ $lamandaujml34->sum('jml_data') }}</td>
-          <td>{{ number_format($lamandaujml34->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $lamandaujml56->sum('jml_data') }}</td>
-          <td>{{ number_format($lamandaujml56->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $lamandaujml78->sum('jml_data') }}</td>
-          <td>{{ number_format($lamandaujml78->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $lamandaujml34->sum('jml_alket') }}</td>
-          <td>{{ $lamandaujml56->sum('jml_alket') }}</td>
-          <td>{{ $lamandaujml78->sum('jml_alket') }}</td>
+          <td>{{ $jml_trw_lalus[$i] }}</td>
+          <td>{{ number_format($nilai_trw_lalus[$i], 0, "", ".") }}</td>
+          <td>{{ $jml_trw_inis[$i] }}</td>
+          <td>{{ number_format($nilai_trw_inis[$i], 0, "", ".") }}</td>
+          <td>{{ $jml_sd_trw_inis[$i] }}</td>
+          <td>{{ number_format($nilai_sd_trw_inis[$i], 0, "", ".") }}</td>
+          <td>{{ $alket_trw_lalus[$i] }}</td>
+          <td>{{ $alket_trw_inis[$i] }}</td>
+          <td>{{ $alket_sd_trw_inis[$i] }}</td>
           <td>-</td>
         </tr>
 
-        <tr>
-          <th></th>
-          <th><u><strong>KAB. SUKAMARA</strong></u></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </tr>
-        @foreach ($ppatsukamaras as $index => $ppatsukamara)
-          <tr>
-            <td>{{ $index +1 }}</td>
-            <td>{{ $ppatsukamara->nama }}</td>
-            <td>{{ $ppatsukamara->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('jml_data') }}</td>
-            <td>{{ number_format($ppatsukamara->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('nilai_data'), 0, "", ".") }}</td>
-            <td>{{ $ppatsukamara->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('jml_data') }}</td>
-            <td>{{ number_format($ppatsukamara->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('nilai_data'), 0, "", ".") }}</td>
-            <td>{{ $ppatsukamara->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('jml_data') }}</td>
-            <td>{{ number_format($ppatsukamara->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('nilai_data'), 0, "", ".") }}</td>
-            <td>{{ $ppatsukamara->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_lalu)->sum('jml_alket') }}</td>
-            <td>{{ $ppatsukamara->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $trw_ini)->sum('jml_alket') }}</td>
-            <td>{{ $ppatsukamara->lapppat->where('tahun', '=', $tahun)->whereIn('bulan', $sd_trw_ini)->sum('jml_alket') }}</td>
-            <td>-</td>
-          </tr>
-        @endforeach
-        <tr class="total">
-          <td></td>
-          <td class="text-center">JUMLAH</td>
-          <td>{{ $sukamarajml34->sum('jml_data') }}</td>
-          <td>{{ number_format($sukamarajml34->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $sukamarajml56->sum('jml_data') }}</td>
-          <td>{{ number_format($sukamarajml56->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $sukamarajml78->sum('jml_data') }}</td>
-          <td>{{ number_format($sukamarajml78->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $sukamarajml34->sum('jml_alket') }}</td>
-          <td>{{ $sukamarajml56->sum('jml_alket') }}</td>
-          <td>{{ $sukamarajml78->sum('jml_alket') }}</td>
-          <td>-</td>
-        </tr>
+        @endfor
         <tr class="total">
           <td></td>
           <td class="text-center">JUMLAH KESELURUHAN</td>
-          <td>{{ $alljml34->sum('jml_data') }}</td>
-          <td>{{ number_format($alljml34->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $alljml56->sum('jml_data') }}</td>
-          <td>{{ number_format($alljml56->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $alljml78->sum('jml_data') }}</td>
-          <td>{{ number_format($alljml78->sum('nilai_data'), 0, "", ".") }}</td>
-          <td>{{ $alljml34->sum('jml_alket') }}</td>
-          <td>{{ $alljml56->sum('jml_alket') }}</td>
-          <td>{{ $alljml78->sum('jml_alket') }}</td>
+          <td>{{ array_sum($jml_trw_lalus) }}</td>
+          <td>{{ number_format(array_sum($nilai_trw_lalus), 0, "", ".") }}</td>
+          <td>{{ array_sum($jml_trw_inis) }}</td>
+          <td>{{ number_format(array_sum($nilai_trw_inis), 0, "", ".") }}</td>
+          <td>{{ array_sum($jml_sd_trw_inis) }}</td>
+          <td>{{ number_format(array_sum($nilai_sd_trw_inis), 0, "", ".") }}</td>
+          <td>{{ array_sum($alket_trw_lalus) }}</td>
+          <td>{{ array_sum($alket_trw_inis) }}</td>
+          <td>{{ array_sum($alket_sd_trw_inis) }}</td>
           <td>-</td>
         </tr>
 
       </tbody>
+
     </table>
 
     <div class="row">
       <div class="col xs-4 col-xs-offset-8">
-        <p>Pangkalan Bun, {{ date('d M Y') }} <br>
+        <p>{{ $array_settings[1] }}, {{ date('d M Y') }} <br>
           @if (empty($nama_ttd)) Kepala Kantor, @else Plh. Kepala Kantor, @endif
           <br><br><br><br>
-          <strong>@if (empty($nama_ttd)) Artiek Purnawestri @else {{ $nama_ttd }} @endif</strong><br>
-          NIP @if (empty($nip_ttd)) 196911231995032001 @else {{ $nip_ttd }} @endif
+          <strong>@if (empty($nama_ttd)) {{ $array_settings[2] }} @else {{ $nama_ttd }} @endif</strong><br>
+          NIP @if (empty($nip_ttd)) {{ $array_settings[3] }} @else {{ $nip_ttd }} @endif
         </p>
       </div>
     </div>

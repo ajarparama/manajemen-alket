@@ -30,6 +30,8 @@ Route::group(['middleware'=>['auth']], function () {
 	Route::post('tambahwilayah', 'SettingController@tambahwilayah');
 	Route::get('wilayah/{id}/edit', ['as' => 'setting.editwilayah', 'uses' => 'SettingController@editwilayah']);
 	Route::put('wilayah/{id}/update', ['as' => 'setting.updatewilayah', 'uses' => 'SettingController@updatewilayah']);
+	Route::delete('wilayah/{id}/hapus', ['as' => 'setting.hapuswilayah', 'uses' => 'SettingController@hapuswilayah']);
+	Route::post('setting/update', ['as' => 'setting.updatesetting', 'uses' => 'SettingController@updatedatakantor']);
 
 	Route::get('monitoring', 'MonitoringController@monppat');
 
