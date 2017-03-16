@@ -19,12 +19,11 @@ class CreatePPATsTable extends Migration
             $table->string('npwp');
             $table->string('alamat');
             $table->string('kabupaten');
-            $table->string('no_telp');
+            $table->string('no_telp')->nullable();
             $table->string('ar_nip')->nullable();
 
             $table->timestamps();
             $table->primary('npwp');
-            $table->foreign('ar_nip')->references('nip')->on('tabel_ar');
         });
     }
 

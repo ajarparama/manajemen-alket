@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\PPAT;
+use DB;
 
 class PPATController extends Controller
 {
@@ -26,7 +27,10 @@ class PPATController extends Controller
      */
     public function create()
     {
-        return view('ppat.create');
+        $ppat = '';
+        $kabupatens = DB::table('wilayah_kpp')->pluck('nama');
+
+        return view('ppat.create')->with(compact('ppat', 'kabupatens'));
     }
 
     /**
@@ -37,7 +41,22 @@ class PPATController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nama'      =>  'required|max:255',
+            'npwp'      =>  'required',
+            'email'     =>  'email',
+            ]);
+        $ppat = PPAT::create([
+            'nama'      =>  $request->input('nama'),
+            'npwp'      =>  $request->input('npwp'),
+            'email'     =>  $request->input('email'),
+            'no_hp'     =>  $request->input('no_hp'),
+            'no_telp'   =>  $request->input('no_telp'),
+            'alamat'    =>  $request->input('alamat'),
+            'kabupaten' =>  $request->input('kabupaten'),
+            ]);
+
+        return redirect()->route('ppat.index');
     }
 
     /**
@@ -57,9 +76,12 @@ class PPATController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($npwp)
     {
-        //
+        $ppat = PPAT::find($npwp);
+        $kabupatens = DB::table('wilayah_kpp')->pluck('nama');
+
+        return view('ppat.edit')->with(compact('ppat', 'kabupatens'));
     }
 
     /**
@@ -69,9 +91,21 @@ class PPATController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $npwp)
     {
-        //
+        $ppat = PPAT::find($npwp);
+
+        $ppat->nama = $request->input('nama');
+        $ppat->npwp = $request->input('npwp');
+        $ppat->email = $request->input('email');
+        $ppat->no_hp = $request->input('no_hp');
+        $ppat->no_telp = $request->input('no_telp');
+        $ppat->alamat = $request->input('alamat');
+        $ppat->kabupaten = $request->input('kabupaten');
+
+        $ppat->save();
+
+        return redirect()->route('ppat.index');
     }
 
     /**
@@ -80,8 +114,10 @@ class PPATController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($npwp)
     {
-        //
+        if(!PPAT::destroy($npwp)) return redirect()->back();
+
+        return redirect()->back();
     }
 }

@@ -28,7 +28,7 @@
               </ul>
 
                 <a href="{{ route('setting.editpegawai', Auth::user()->id) }}" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editModal-{{Auth::user()->id}}"><b>Edit Profil</b></a>
-                <a href="{{ route('setting.editpegawai', Auth::user()->id) }}" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editModal-{{Auth::user()->id}}"><b>Ganti Password</b></a>
+                <a href="{{ route('setting.editpegawai', Auth::user()->id) }}" class="btn btn-primary btn-block" data-toggle="modal" data-target="#gantiPassword-{{Auth::user()->id}}"><b>Ganti Password</b></a>
             </div>
             <!-- /.box-body -->
           </div>
@@ -41,10 +41,17 @@
               <li class="active"><a href="#pegawai" data-toggle="tab">Pegawai</a></li>
               <li><a href="#wilayah" data-toggle="tab">Wilayah KPP</a></li>
               <li><a href="#datakantor" data-toggle="tab">Data Kantor</a></li>
+              <li><a href="#tentangaplikasi" data-toggle="tab">Tentang Aplikasi</a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="pegawai">
-                <a href="#"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahPegawai">Tambah Pegawai</button></a>
+
+                @if (Auth::user()->seksi == 8)
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahPegawai">Tambah Pegawai</button>
+                @else
+                <button type="button" class="btn btn-primary disabled" >Tambah Pegawai</button>
+                @endif
+
                 <table class="table">
                   <thead>
                     <tr>
@@ -52,7 +59,10 @@
                       <th>Nama</th>
                       <th>NIP</th>
                       <th>Seksi</th>
+                      @if (Auth::user()->seksi == 8)
                       <th style="width: 150px;">Opsi</th>
+                      @else
+                      @endif
                     </tr>
                   </thead>
                   <tbody>
@@ -62,16 +72,65 @@
                       <td>{{ $user->nama }}</td>
                       <td>{{ $user->nip }}</td>
                       <td>@if (!empty($seksi[$user->seksi])) {{ $seksi[$user->seksi] }} @else @endif</td>
+                      @if (Auth::user()->seksi == 8)
                       <td>
                         <div class="btn-group">
                           <a href="{{ route('setting.editpegawai', $user->id) }}" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#editModal-{{$user->id}}"><i class="fa fa-edit"></i> Edit</a>
                           <a href="" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteModal-{{$user->id}}"><i class="fa fa-trash"></i> Hapus</a>
                         </div>
                       </td>
+                      @else
+                      @endif
                     </tr>
                   @endforeach
                   </tbody>
                 </table>
+
+                  <div class="modal fade" id="gantiPassword-{{Auth::user()->id}}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        {!! Form::model($user, [
+                          'url'     => route('setting.gantipassword', Auth::user()->id), 
+                          'method'  => 'put',
+                          'class'   => 'box-body'
+                          ]) !!}
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="gantiPasswordLabel">Ganti Password</h4>
+                        </div>
+                        <div class="modal-body">
+
+                          <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
+                            {{ Form::label('password', 'Password') }}
+                            <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Masukkan Password" required autofocus>
+
+                            @if ($errors->has('password'))
+                              <span class="help-block">
+                                <strong>{{ $errors->first('password') }}</strong>
+                              </span>
+                            @endif
+                          </div>
+
+                          <div class="form-group has-feedback{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                            {{ Form::label('password', 'Ketik Ulang Password') }}
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" value="{{ old('password') }}" placeholder="Ketik Ulang Password" required>
+
+                            @if ($errors->has('password_confirmation'))
+                              <span class="help-block">
+                                <strong>{{ $errors->first('password_confirmation') }}</strong>
+                              </span>
+                            @endif
+                          </div>
+
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary">Simpan</button>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                        </div>
+                      {!! Form::close() !!}
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <div class="modal fade" id="tambahPegawai">
                   <div class="modal-dialog">
@@ -248,9 +307,7 @@
                     </div>
                   </div>
                 </div>
-                @endforeach
 
-                @foreach ($users as $user)
                 <div class="modal fade" id="deleteModal-{{$user->id}}" tabindex="-1" role="dialog">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -276,13 +333,21 @@
 
 
               <div class="tab-pane" id="wilayah">
-                <a href="#"><button class="btn btn-primary" data-toggle="modal" data-target="#tambahWilayah">Tambah Wilayah</button></a>
+                @if (Auth::user()->seksi == 8)
+                <button class="btn btn-primary" data-toggle="modal" data-target="#tambahWilayah">Tambah Wilayah</button>
+                @else
+                <button type="button" class="btn btn-primary disabled" >Tambah Wilayah</button>
+                @endif
+
                 <table class="table">
                   <thead>
                     <tr>
                       <th>No.</th>
                       <th>Nama Wilayah</th>
+                      @if (Auth::user()->seksi == 8)
                       <th>Opsi</th>
+                      @else
+                      @endif
                     </tr>
                   </thead>
                   <tbody>
@@ -290,12 +355,15 @@
                     <tr>
                       <td>{{ $index+1 }}</td>
                       <td>{{ $wilayah->nama }}</td>
+                      @if (Auth::user()->seksi == 8)
                       <td>
                         <div class="btn-group">
                           <a href="{{ route('setting.editwilayah', $wilayah->id) }}" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#editWilayah-{{$wilayah->id}}"><i class="fa fa-edit"></i> Edit</a>
                           <a href="" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteWilayah-{{$wilayah->id}}"><i class="fa fa-trash"></i> Hapus</a>
                         </div>
                       </td>
+                      @else
+                      @endif
                     </tr>
                     @endforeach
                   </tbody>
@@ -399,51 +467,62 @@
                     <label for="nama_kantor" class="col-sm-2 control-label">Nama Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="nama_kantor" name="nama_kantor" value="{{ $array_settings[0] }}" placeholder="Misal: Kantor Pelayanan Pajak Pratama Pangkalan Bun">
+                      <input type="text" class="form-control" id="nama_kantor" name="nama_kantor" value="{{ $array_settings[0] }}" placeholder="Misal: Kantor Pelayanan Pajak Pratama Pangkalan Bun" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="lokasi_kantor" class="col-sm-2 control-label">Lokasi Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="lokasi_kantor" name="lokasi_kantor" value="{{ $array_settings[1] }}" placeholder="Misal: Pangkalan Bun">
+                      <input type="text" class="form-control" id="lokasi_kantor" name="lokasi_kantor" value="{{ $array_settings[1] }}" placeholder="Misal: Pangkalan Bun" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="nama_kakap" class="col-sm-2 control-label">Nama Kepala Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="nama_kakap" name="nama_kakap" value="{{ $array_settings[2] }}" placeholder="Masukkan Nama Kepala Kantor">
+                      <input type="text" class="form-control" id="nama_kakap" name="nama_kakap" value="{{ $array_settings[2] }}" placeholder="Masukkan Nama Kepala Kantor" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="nip_kakap" class="col-sm-2 control-label">NIP Kepala Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="number" class="form-control" id="nip_kakap" name="nip_kakap" value="{{ $array_settings[3] }}" placeholder="Masukkan NIP Panjang">
+                      <input type="number" class="form-control" id="nip_kakap" name="nip_kakap" value="{{ $array_settings[3] }}" placeholder="Masukkan NIP Panjang" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="nama_kanwil" class="col-sm-2 control-label">Nama Kanwil</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="nama_kanwil" name="nama_kanwil" value="{{ $array_settings[4] }}" placeholder="Misal: Kantor Wilayah DJP Kalimantan Selatan dan Tengah">
+                      <input type="text" class="form-control" id="nama_kanwil" name="nama_kanwil" value="{{ $array_settings[4] }}" placeholder="Misal: Kantor Wilayah DJP Kalimantan Selatan dan Tengah" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="lokasi_kanwil" class="col-sm-2 control-label">Lokasi Kanwil</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="lokasi_kanwil" name="lokasi_kanwil" value="{{ $array_settings[5] }}" placeholder="Misal: Banjarmasin">
+                      <input type="text" class="form-control" id="lokasi_kanwil" name="lokasi_kanwil" value="{{ $array_settings[5] }}" placeholder="Misal: Banjarmasin" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
+                      @if (Auth::user()->seksi == 8)
                       <button type="submit" class="btn btn-danger">Simpan</button>
+                      @else
+                      <a href="#" class="btn btn-danger disabled">Simpan</a>
+                      @endif
                     </div>
                   </div>
                 </form>
+              </div>
+
+              <div class="tab-pane" id="tentangaplikasi">
+              <h1>Manajemen<b>Alket</b></h1><br>
+              <p>Anda benar, aplikasi ini digunakan untuk manajemen alket.<br>
+              Dibuat dan dikembangkan oleh Ajar Parama Adhi.<br><br>
+              Jika ada saran atau masukan bisa menghubungi <a href="mailto:ajarparama.adhi@pajak.go.id">ajarparama.adhi@pajak.go.id</a></p>
               </div>
               <!-- /.tab-pane -->
             </div>

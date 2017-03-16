@@ -52,6 +52,55 @@ class TabelSeksiTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
+            5 => 
+            array (
+                'id' => 6,
+                'nama' => 'Seksi Waskon 1',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            6 => 
+            array (
+                'id' => 7,
+                'nama' => 'Seksi Pelayanan',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            7 => 
+            array (
+                'id' => 8,
+                'nama' => 'Seksi PDI',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            8 => 
+            array (
+                'id' => 9,
+                'nama' => 'Subbag Umum dan KI',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            9 => 
+            array (
+                'id' => 10,
+                'nama' => 'Seksi Penagihan',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            10 => 
+            array (
+                'id' => 11,
+                'nama' => 'Fungsional',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            11 => 
+            array (
+                'id' => 12,
+                'nama' => 'Seksi Pemeriksaan',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
         ));
         
         

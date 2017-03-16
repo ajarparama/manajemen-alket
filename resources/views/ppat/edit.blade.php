@@ -17,9 +17,9 @@
           <h3 class="box-title">Input PPAT</h3>
         </div>
         <div class="box-body">
-          {!! Form::open([
-            'url'     => route('ppat.store'), 
-            'method'  => 'post',
+          {!! Form::model([
+            'url'     => route('ppat.update', $ppat->npwp), 
+            'method'  => 'put',
             'class'   => 'box-body'
             ]) !!}
 

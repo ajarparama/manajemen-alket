@@ -17,10 +17,10 @@
 
       <?php
       $tanggal = $berita->tgl_berita;
-            $tanggal = explode('/', $tanggal);
-            $hari = $tanggal[0];
+            $tanggal = explode('-', $tanggal);
+            $hari = $tanggal[2];
             $bulan = $tanggal[1];
-            $tahun = $tanggal[2];
+            $tahun = $tanggal[0];
             $tgl_berita = $hari." ".$nama_bulan[$bulan]." ".$tahun;
 
             $jam = $berita->created_at;

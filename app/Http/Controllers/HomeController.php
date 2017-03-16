@@ -57,7 +57,7 @@ class HomeController extends Controller
         $chart_disposisi = DB::table('bulan')
             ->selectRaw("SUM(IFNULL(nilai_data,0)) AS nilai")
             ->leftJoin('alket', function($join) {
-                $join->on(DB::raw("strftime('%m', alket.created_at)"), '=', 'bulan.no')
+                $join->on(DB::raw('MONTH(alket.created_at)'), '=', 'bulan.id')
                      ->whereYear('alket.created_at', '=', date("Y"));
             })
             ->groupBy('bulan.id')

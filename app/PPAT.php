@@ -20,7 +20,4 @@ class PPAT extends Model
     	return $this->hasMany('App\LapPPAT', 'ppat_npwp');
     }
 
-    public function ar() {
-    	return $this->belongsTo('App\AR', 'ar_nip');
-    }
 }

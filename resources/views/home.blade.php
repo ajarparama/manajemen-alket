@@ -6,34 +6,6 @@
 
 @section('content')
 <div class="row">
-  <div class="col-md-12">
-    <div class="box">
-      <div class="box-header with-border">
-        <h3 class="box-title">Nilai Alket yang dibuat per Bulan</h3>
-      </div>
-      <div class="box-body">
-        <div class="chart">
-          <canvas id="chartDisposisi" width="780" height="360"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-
-  <div class="col-md-8">
-    <div class="box">
-      <div class="box-header with-border">
-        <h3 class="box-title">Laporan PPAT per Bulan</h3>
-      </div>
-      <div class="box-body">
-        <div class="chart">
-          <canvas id="chartAlket" width="780" height="360"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="col-md-4">
     <div class="small-box bg-purple">
@@ -45,6 +17,9 @@
         <i class="ion ion-android-bulb"></i>
       </div>
     </div>
+  </div>
+
+  <div class="col-md-4">
     <div class="small-box bg-aqua">
       <div class="inner">
         <h3>{{ number_format($widget_nilai, 0, "", ".") }}</h3>
@@ -54,6 +29,9 @@
         <i class="ion ion-bag"></i>
       </div>
     </div>
+  </div>
+
+  <div class="col-md-4">
     <div class="small-box bg-teal">
       <div class="inner">
         <h3>{{ $widget_lap }}</h3>
@@ -61,6 +39,36 @@
       </div>
       <div class="icon">
         <i class="ion ion-document-text"></i>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-6">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Nilai Alket yang dibuat per Bulan</h3>
+      </div>
+      <div class="box-body">
+        <div class="chart">
+          <canvas id="chartDisposisi" width="780" height="360"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Laporan PPAT per Bulan</h3>
+      </div>
+      <div class="box-body">
+        <div class="chart">
+          <canvas id="chartAlket" width="780" height="360"></canvas>
+        </div>
       </div>
     </div>
   </div>

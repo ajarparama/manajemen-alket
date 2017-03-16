@@ -26,9 +26,13 @@
                     <th>NPWP</th>
                     <th>Alamat</th>
                     <th>No. Telp.</th>
+                    <th>No. HP</th>
+                    <th>Email</th>
                     <th>Kabupaten</th>
-                    <th>AR</th>
+                    @if (Auth::user()->seksi == 8)
                     <th>Opsi</th>
+                    @else
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
@@ -39,38 +43,47 @@
                     <td>{{ $ppat->npwp }}</td>
                     <td>{{ $ppat->alamat }}</td>
                     <td>{{ $ppat->no_telp }}</td>
+                    <td>{{ $ppat->no_hp }}</td>
+                    <td>{{ $ppat->email }}</td>
                     <td>{{ $ppat->kabupaten }}</td>
-                    <td>{{ $ppat->ar_nip }}</td>
+                    @if (Auth::user()->seksi == 8)
                     <td>
                       <div class="btn-group">
-                        <a href="" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
-                        <a href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</a>
+                        <a class="btn btn-xs btn-primary" href="{{ route('ppat.edit', $ppat->npwp) }}"><i class="fa fa-edit"></i> Edit</a>
+                        <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deletePPAT-{{$ppat->npwp}}"><i class="fa fa-trash"></i> Hapus</button>
                       </div>
                     </td>
+                    @else
+                    @endif
                   </tr>
                   @endforeach
                 </tbody>
               </table>
             </div>
           </div> 
-
+          
+          @foreach ($ppats as $ppat)
             <!-- Delete Modal -->
-            <div class="modal fade" id="myModal-#" tabindex="-1" role="dialog">
+            <div class="modal fade" id="deletePPAT-{{$ppat->npwp}}" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Hapus Alket</h4>
+                    <h4 class="modal-title" id="deletePPATLabel">Hapus Alket</h4>
                   </div>
                   <div class="modal-body">
-                    Anda yakin ingin menghapus Alket dari ?
+                    Anda yakin ingin menghapus {{$ppat->nama}} dari daftar PPAT?
                   </div>
                   <div class="modal-footer">
-
+                    {!! Form::model($ppat, ['url' => route('ppat.destroy', $ppat->npwp) ,'method' => 'delete'] ) !!}
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                      {!! Form::submit('Hapus', ['class'=>'btn btn-danger']) !!}
+                    {!! Form::close()!!}
                   </div>
                 </div>
               </div>
             </div>
+          @endforeach
 
         </div>
       </div>

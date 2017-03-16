@@ -25,6 +25,7 @@ Route::group(['middleware'=>['auth']], function () {
 	Route::get('setting', ['as' => 'setting', 'uses' => 'SettingController@index']);
 	Route::get('user/{id}/edit', ['as' => 'setting.editpegawai', 'uses' => 'SettingController@editpegawai']);
 	Route::put('user/{id}/update', ['as' => 'setting.updatepegawai', 'uses' => 'SettingController@updatepegawai']);
+	Route::put('user/{id}/gantipassword', ['as' => 'setting.gantipassword', 'uses' => 'SettingController@gantipassword']);
 	Route::delete('user/{id}/hapus', ['as' => 'setting.hapuspegawai', 'uses' => 'SettingController@hapuspegawai']);
 	Route::post('daftar', 'SettingController@daftar');
 	Route::post('tambahwilayah', 'SettingController@tambahwilayah');

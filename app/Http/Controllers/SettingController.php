@@ -57,11 +57,27 @@ class SettingController extends Controller
 
     public function updatepegawai(Request $request, $id)
     {
+        $this->validate($request, [
+            'nama'  => 'required|max:255',
+            'nip'  => 'required|numeric|unique:users',
+            ]);
         $user = User::find($id);
         $user->nama = $request->input('nama');
         $user->nip = $request->input('nip');
         $user->userpic = $request->input('userpic');
         $user->seksi = $request->input('seksi');
+        $user->save();
+
+        return redirect()->route('setting');
+    }
+
+    public function gantipassword(Request $request, $id)
+    {
+        $this->validate($request, [
+            'password' => 'required|min:5|confirmed',
+            ]);
+        $user = User::find($id);
+        $user->password = bcrypt($request->input('password'));
         $user->save();
 
         return redirect()->route('setting');

@@ -30,7 +30,7 @@
           <ul class="treeview-menu">
             <li @if (Request::is('alket*')) class="active" @endif><a href="{{ url('alket') }}"><i class="fa fa-circle-o"></i>Alket Jual Beli</a></li>
             <li @if (Request::is('mediamassa*')) class="active" @endif><a href="{{ url('mediamassa') }}"><i class="fa fa-circle-o"></i>Alket Media Massa</a></li>
-            <li @if (Request::is('siup*')) class="active" @endif><a href="{{ url('siup') }}"><i class="fa fa-circle-o"></i>SIUP dan TDP</a></li>
+            <!-- <li @if (Request::is('siup*')) class="active" @endif><a href="{{ url('siup') }}"><i class="fa fa-circle-o"></i>SIUP dan TDP</a></li> -->
           </ul>
         </li>
         <li @if (Request::is('ppat*')) class="treeview active" @elseif (Request::is('lapppat*')) class="treeview active" @elseif (Request::is('cetak-laporan*')) class="treeview active" @elseif (Request::is('monitoring*')) class="treeview active" @else class="treeview" @endif>

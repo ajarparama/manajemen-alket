@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateARsTable extends Migration
+class AddNoHpEmailToTabelPpatTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateARsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tabel_ar', function (Blueprint $table) {
-
-            $table->string('nip');
-            $table->string('nama');
-            $table->string('seksi');
-
-            $table->timestamps();
-            $table->primary('nip');
+        Schema::table('tabel_ppat', function (Blueprint $table) {
+            $table->string('no_hp')->nullable();
+            $table->string('email')->nullable();
         });
     }
 
@@ -31,6 +26,8 @@ class CreateARsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tabel_ar');
+        Schema::table('tabel_ppat', function (Blueprint $table) {
+            //
+        });
     }
 }
