@@ -57,10 +57,6 @@ class SettingController extends Controller
 
     public function updatepegawai(Request $request, $id)
     {
-        $this->validate($request, [
-            'nama'  => 'required|max:255',
-            'nip'  => 'required|numeric|unique:users',
-            ]);
         $user = User::find($id);
         $user->nama = $request->input('nama');
         $user->nip = $request->input('nip');

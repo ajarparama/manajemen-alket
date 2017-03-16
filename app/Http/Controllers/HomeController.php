@@ -85,11 +85,19 @@ class HomeController extends Controller
             ->orderBy('bulan.id')
             ->pluck('alket');
 
-        $widget_alket = DB::table('tabel_lapppat')
+        $widget_alket = DB::table('alket')
+            ->whereYear('created_at', '=', date('Y'))
+            ->count();
+
+        $widget_nilai = DB::table('alket')
+            ->whereYear('created_at', '=', date('Y'))
+            ->sum('nilai_data');
+
+        $xwidget_alket = DB::table('tabel_lapppat')
             ->where('tahun', '=', date("Y"))
             ->sum('jml_alket');
 
-        $widget_nilai = DB::table('tabel_lapppat')
+        $xwidget_nilai = DB::table('tabel_lapppat')
             ->where('tahun', '=', date("Y"))
             ->sum('nilai_data');
             

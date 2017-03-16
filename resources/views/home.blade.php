@@ -11,7 +11,7 @@
     <div class="small-box bg-purple">
       <div class="inner">
         <h3>{{ $widget_alket }}</h3>
-        <p>Alket dari PPAT tahun ini</p>
+        <p>Alket yang telah dikirim tahun ini</p>
       </div>
       <div class="icon">
         <i class="ion ion-android-bulb"></i>
@@ -22,7 +22,7 @@
   <div class="col-md-4">
     <div class="small-box bg-aqua">
       <div class="inner">
-        <h3>{{ number_format($widget_nilai, 0, "", ".") }}</h3>
+        <h3>Rp{{ number_format($widget_nilai, 0, "", ".") }}</h3>
         <p>Nilai transaksi bisa dimanfaatkan tahun ini</p>
       </div>
       <div class="icon">
