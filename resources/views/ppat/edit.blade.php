@@ -17,7 +17,7 @@
           <h3 class="box-title">Input PPAT</h3>
         </div>
         <div class="box-body">
-          {!! Form::model([
+          {!! Form::model($ppat, [
             'url'     => route('ppat.update', $ppat->npwp), 
             'method'  => 'put',
             'class'   => 'box-body'
