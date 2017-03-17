@@ -3,7 +3,7 @@
 
                   <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
                     {{ Form::label('nama', 'Nama PPAT') }}
-                    <input type="text" id="nama" name="nama" class="form-control" @if (empty($ppat)) @else value="{{ old( 'nama', $ppat->nama ) }}" @endif placeholder="Masukan Nama PPAT">
+                    <input type="text" id="nama" name="nama" class="form-control" @if (empty($ppat)) value="{{ old( 'nama') }}" @else value="{{ old( 'nama', $ppat->nama ) }}" @endif placeholder="Masukan Nama PPAT">
                     @if ($errors->has('nama'))
                       <span class="help-block">
                         {{ $errors->first('nama') }}
@@ -14,7 +14,7 @@
                     <div class="col-md-6"> 
                       <div class="form-group {{ $errors->has('npwp') ? 'has-error' : '' }}">
                         {{ Form::label('npwp', 'NPWP') }}
-                        <input data-inputmask="'mask': '99.999.999.9-999.999', 'removeMaskOnSubmit': true" class="form-control" placeholder="Masukan NPWP" name="npwp" id="npwp" value="@if (empty($ppat)) @else {{ old( 'npwp', $ppat->npwp ) }} @endif">
+                        <input data-inputmask="'mask': '99.999.999.9-999.999', 'removeMaskOnSubmit': true" class="form-control" placeholder="Masukan NPWP" name="npwp" id="npwp" value="@if (empty($ppat)) value="{{ old( 'npwp') }}" @else {{ old( 'npwp', $ppat->npwp ) }} @endif">
                         @if ($errors->has('npwp'))
                           <span class="help-block">
                             {{ $errors->first('npwp') }}
@@ -25,7 +25,7 @@
                     <div class="col-md-6"> 
                       <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                         {{ Form::label('email', 'Email') }}
-                        <input type="text" id="email" name="email" class="form-control" @if (empty($ppat)) @else value="{{ old( 'email', $ppat->email ) }}" @endif placeholder="Masukan Email PPAT">
+                        <input type="text" id="email" name="email" class="form-control" @if (empty($ppat))  value="{{ old( 'email') }}" @else value="{{ old( 'email', $ppat->email ) }}" @endif placeholder="Masukan Email PPAT">
                         @if ($errors->has('email'))
                           <span class="help-block">
                             {{ $errors->first('email') }}
@@ -39,7 +39,7 @@
                     <div class="col-md-6"> 
                       <div class="form-group {{ $errors->has('no_hp') ? 'has-error' : '' }}">
                         {{ Form::label('no_hp', 'Nomor HP') }}
-                        <input type="text" id="no_hp" name="no_hp" class="form-control" @if (empty($ppat)) @else value="{{ old( 'no_hp', $ppat->no_hp ) }}" @endif placeholder="Masukan Nomor HP">
+                        <input type="text" id="no_hp" name="no_hp" class="form-control" @if (empty($ppat))  value="{{ old( 'no_hp') }}" @else value="{{ old( 'no_hp', $ppat->no_hp ) }}" @endif placeholder="Masukan Nomor HP">
                         @if ($errors->has('no_hp'))
                           <span class="help-block">
                             {{ $errors->first('no_hp') }}
@@ -50,7 +50,7 @@
                     <div class="col-md-6"> 
                       <div class="form-group {{ $errors->has('no_telp') ? 'has-error' : '' }}">
                         {{ Form::label('no_telp', 'Nomor Telepon') }}
-                        <input type="text" id="no_telp" name="no_telp" class="form-control" @if (empty($ppat)) @else value="{{ old( 'no_telp', $ppat->no_telp ) }}" @endif placeholder="Masukan Nomor Telepon">
+                        <input type="text" id="no_telp" name="no_telp" class="form-control" @if (empty($ppat))  value="{{ old( 'no_telp') }}" @else value="{{ old( 'no_telp', $ppat->no_telp ) }}" @endif placeholder="Masukan Nomor Telepon">
                         @if ($errors->has('no_telp'))
                           <span class="help-block">
                             {{ $errors->first('no_telp') }}
@@ -62,7 +62,7 @@
                   
                   <div class="form-group {{ $errors->has('alamat') ? 'has-error' : '' }}">
                     {{ Form::label('alamat', 'Alamat') }}
-                    <input type="text" id="alamat" name="alamat" class="form-control" @if (empty($ppat)) @else value="{{ old( 'alamat', $ppat->alamat ) }}" @endif placeholder="Masukan Alamat">
+                    <input type="text" id="alamat" name="alamat" class="form-control" @if (empty($ppat))  value="{{ old( 'alamat') }}" @else value="{{ old( 'alamat', $ppat->alamat ) }}" @endif placeholder="Masukan Alamat">
                     @if ($errors->has('alamat'))
                       <span class="help-block">
                         {{ $errors->first('alamat') }}
