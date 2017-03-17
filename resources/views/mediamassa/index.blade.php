@@ -12,6 +12,13 @@
             <a href="{{ route('mediamassa.create') }}"><button type="button" class="btn btn-primary" >Tambah Data</button></a>
         </div>
       </div>
+      @if (!empty($beritas))
+      <div class="callout callout-danger">
+          <h4>Warning!</h4>
+
+          <p>Belum ada berita yang diinput, silakan input terlebih dahulu.</p>
+      </div>
+      @else
       <ul class="timeline">
       @foreach ($beritas as $berita)
 
@@ -96,6 +103,7 @@
         @endforeach
         @else
         @endif
+      @endif
     </div>
   </div>
 @endsection
