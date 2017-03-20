@@ -467,42 +467,42 @@
                     <label for="nama_kantor" class="col-sm-2 control-label">Nama Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="nama_kantor" name="nama_kantor" value="{{ $array_settings[0] }}" placeholder="Misal: Kantor Pelayanan Pajak Pratama Pangkalan Bun" @if (Auth::user()->seksi != 8) disabled @endif>
+                      <input type="text" class="form-control" id="nama_kantor" name="nama_kantor" @if (!empty($array_settings[0])) value="{{ $array_settings[0] }}" @else @endif placeholder="Misal: Kantor Pelayanan Pajak Pratama Pangkalan Bun" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="lokasi_kantor" class="col-sm-2 control-label">Lokasi Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="lokasi_kantor" name="lokasi_kantor" value="{{ $array_settings[1] }}" placeholder="Misal: Pangkalan Bun" @if (Auth::user()->seksi != 8) disabled @endif>
+                      <input type="text" class="form-control" id="lokasi_kantor" name="lokasi_kantor" @if (!empty($array_settings[1])) value="{{ $array_settings[1] }}" @else @endif placeholder="Misal: Pangkalan Bun" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="nama_kakap" class="col-sm-2 control-label">Nama Kepala Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="nama_kakap" name="nama_kakap" value="{{ $array_settings[2] }}" placeholder="Masukkan Nama Kepala Kantor" @if (Auth::user()->seksi != 8) disabled @endif>
+                      <input type="text" class="form-control" id="nama_kakap" name="nama_kakap" @if (!empty($array_settings[2])) value="{{ $array_settings[2] }}" @else @endif placeholder="Masukkan Nama Kepala Kantor" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="nip_kakap" class="col-sm-2 control-label">NIP Kepala Kantor</label>
 
                     <div class="col-sm-10">
-                      <input type="number" class="form-control" id="nip_kakap" name="nip_kakap" value="{{ $array_settings[3] }}" placeholder="Masukkan NIP Panjang" @if (Auth::user()->seksi != 8) disabled @endif>
+                      <input type="text" class="form-control" id="nip_kakap" name="nip_kakap" @if (!empty($array_settings[3])) value="{{ $array_settings[3] }}" @else @endif placeholder="Masukkan NIP Panjang" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="nama_kanwil" class="col-sm-2 control-label">Nama Kanwil</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="nama_kanwil" name="nama_kanwil" value="{{ $array_settings[4] }}" placeholder="Misal: Kantor Wilayah DJP Kalimantan Selatan dan Tengah" @if (Auth::user()->seksi != 8) disabled @endif>
+                      <input type="text" class="form-control" id="nama_kanwil" name="nama_kanwil" @if (!empty($array_settings[4])) value="{{ $array_settings[4] }}" @else @endif placeholder="Misal: Kantor Wilayah DJP Kalimantan Selatan dan Tengah" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="lokasi_kanwil" class="col-sm-2 control-label">Lokasi Kanwil</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="lokasi_kanwil" name="lokasi_kanwil" value="{{ $array_settings[5] }}" placeholder="Misal: Banjarmasin" @if (Auth::user()->seksi != 8) disabled @endif>
+                      <input type="text" class="form-control" id="lokasi_kanwil" name="lokasi_kanwil" @if (!empty($array_settings[5])) value="{{ $array_settings[5] }}" @else @endif placeholder="Misal: Banjarmasin" @if (Auth::user()->seksi != 8) disabled @endif>
                     </div>
                   </div>
 

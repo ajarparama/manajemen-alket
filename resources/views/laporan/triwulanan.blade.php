@@ -61,8 +61,8 @@
             <p>
               KEMENTERIAN KEUANGAN REPUBLIK INDONESIA <br>
               DIREKTORAT JENDERAL PAJAK <br>
-              {{ strtoupper($array_settings[4]) }} <br>
-              {{ strtoupper($array_settings[0]) }} <br>
+              @if (!empty($array_settings[4])) {{ strtoupper($array_settings[4]) }} @else <span class="bg-danger"> NAMA KANWIL BELUM DIISI </span> @endif<br>
+              @if (!empty($array_settings[0])) {{ strtoupper($array_settings[0]) }} @else <span class="bg-danger"> NAMA KANTOR BELUM DIISI </span> @endif<br>
             </p>
           </div>
         </div>
@@ -72,8 +72,8 @@
             <p>Yth.</p>
           </div>
           <div class="col-xs-10 kakanwil text-left">
-            <p>Kepala {{ $array_settings[4] }}</p>
-            <p>{{ $array_settings[5] }}</p>
+            <p>@if (!empty($array_settings[4])) Kepala {{ $array_settings[4] }} @else <span class="bg-danger"> NAMA KANWIL BELUM DIISI </span> @endif</p>
+            <p>@if (!empty($array_settings[5])) {{ $array_settings[5] }} @else <span class="bg-danger"> LOKASI KANWIL BELUM DIISI </span> @endif</p>
           </div>
         </div>
 
@@ -198,11 +198,11 @@
 
     <div class="row">
       <div class="col xs-4 col-xs-offset-8">
-        <p>{{ $array_settings[1] }}, {{ date('d M Y') }} <br>
+        <p>@if (!empty($array_settings[1])) {{ $array_settings[1] }}@else <span class="bg-danger"> LOKASI KANTOR BELUM DIISI </span> @endif, {{ date('d M Y') }} <br>
           @if (empty($nama_ttd)) Kepala Kantor, @else Plh. Kepala Kantor, @endif
           <br><br><br><br>
-          <strong>@if (empty($nama_ttd)) {{ $array_settings[2] }} @else {{ $nama_ttd }} @endif</strong><br>
-          NIP @if (empty($nip_ttd)) {{ $array_settings[3] }} @else {{ $nip_ttd }} @endif
+          <strong>@if (empty($nama_ttd) AND empty($array_settings[2])) <span class="bg-danger"> NAMA KEPALA KANTOR BELUM DIISI </span> @elseif (empty($nama_ttd)) {{ $array_settings[2] }} @else {{ $nama_ttd }} @endif</strong><br>
+          @if (empty($nip_ttd) AND empty($array_settings[3])) <span class="bg-danger"> NIP KEPALA KANTOR BELUM DIISI </span>  @elseif (empty($nip_ttd)) NIP {{ $array_settings[3] }} @else {{ $nip_ttd }} @endif
         </p>
       </div>
     </div>
