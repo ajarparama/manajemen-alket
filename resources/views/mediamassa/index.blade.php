@@ -12,7 +12,7 @@
             <a href="{{ route('mediamassa.create') }}"><button type="button" class="btn btn-primary" >Tambah Data</button></a>
         </div>
       </div>
-      @if (!empty($beritas))
+      @if (empty($beritas))
       <div class="callout callout-danger">
           <h4>Warning!</h4>
 
