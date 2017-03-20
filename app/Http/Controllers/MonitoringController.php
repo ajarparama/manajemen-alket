@@ -12,7 +12,7 @@ class MonitoringController extends Controller
     public function monppat(Request $request)
     {
     	$tahun = $request->get('tahun');
-    	$ppats    = PPAT::with('lapppat')->get();
+    	$ppats    = PPAT::with('lapppat')->orderBy('nama', 'asc')->get();
 
     	return view('ppat.monitoring')->with(compact('ppats', 'tahun'));
     }

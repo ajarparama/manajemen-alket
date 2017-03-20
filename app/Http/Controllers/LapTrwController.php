@@ -63,7 +63,7 @@ class LapTrwController extends Controller
         for ($i = 0; $i < count($wilayahs); $i++){
           $ppats[$i]    = PPAT::with('lapppat')->where(function($query) use($wilayahs, $i) {
               $query->orWhere('kabupaten', 'like', $wilayahs[$i]);
-          })->get();
+          })->orderBy('nama', 'asc')->get();
 
         $trx_trw_lalus[$i] = LapPPAT::whereHas('ppat', function($query) use ($wilayahs, $i) {
                                $query->Where('kabupaten', 'like', $wilayahs[$i]);
