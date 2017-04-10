@@ -523,6 +523,7 @@
               <p>Anda benar, aplikasi ini digunakan untuk manajemen alket.<br>
               Dibuat dan dikembangkan oleh Ajar Parama Adhi.<br><br>
               Jika ada saran atau masukan bisa menghubungi <a href="mailto:ajarparama.adhi@pajak.go.id">ajarparama.adhi@pajak.go.id</a></p>
+              <p>Versi 0.9.0</p>
               </div>
               <!-- /.tab-pane -->
             </div>
