@@ -33,7 +33,7 @@ class MediaMassaController extends Controller
             '11'    => "November",
             '12'    => "Desember");
         $beritas = DB::table('media_massa')
-                    ->orderBy('created_at', 'desc')
+                    ->orderBy('tgl_berita', 'desc')
                     ->paginate(3);
         $pengirim = User::pluck('nama', 'nip');
 

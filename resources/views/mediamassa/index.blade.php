@@ -23,10 +23,9 @@
       @foreach ($beritas as $berita)
 
       <?php
-      $tanggal = $berita->tgl_berita;
-            $tanggal = explode('-', $tanggal);
+            $tanggal = explode('-', $berita->tgl_berita);
             $hari = $tanggal[2];
-            $bulan = $tanggal[1];
+            $bulan = (int)$tanggal[1];
             $tahun = $tanggal[0];
             $tgl_berita = $hari." ".$nama_bulan[$bulan]." ".$tahun;
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class MediaMassa extends Model
 {
@@ -11,4 +12,9 @@ class MediaMassa extends Model
 
     // Mass assignment
     protected $guard = [];
+
+    public function setTglBeritaAttribute($value)
+    {
+        $this->attributes['tgl_berita'] = Carbon::createFromFormat('d/m/Y', $value);
+    }
 }
